@@ -69,6 +69,7 @@ github.com/kubedb/cli
 github.com/kubedb/docs
 github.com/kubedb/elasticsearch
 github.com/kubedb/installer
+github.com/kubedb/mariadb
 github.com/kubedb/memcached
 github.com/kubedb/mongodb
 github.com/kubedb/mysql
