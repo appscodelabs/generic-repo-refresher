@@ -45,8 +45,9 @@ refresh() {
 
     pushd .github/workflows/
     # update engineerd/setup-kind
-    sed -i 's|engineerd/setup-kind@v0.1.0|engineerd/setup-kind@v0.4.0|g' *
-    sed -i 's|engineerd/setup-kind@v0.3.0|engineerd/setup-kind@v0.4.0|g' *
+    sed -i 's|engineerd/setup-kind@v0.1.0|engineerd/setup-kind@v0.5.0|g' *
+    sed -i 's|engineerd/setup-kind@v0.3.0|engineerd/setup-kind@v0.5.0|g' *
+    sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
     sed -i 's|version: v0.7.0|version: v0.9.0|g' *
     sed -i 's|version: v0.8.1|version: v0.9.0|g' *
     sed -i 's|\[v1.12.10, v1.13.12, v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.4\]|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.1\]|g' *
