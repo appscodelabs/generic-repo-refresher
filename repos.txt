@@ -22,6 +22,7 @@ github.com/bytebuilders/deploy-button
 github.com/bytebuilders/govanityurls
 github.com/bytebuilders/license-verifier
 github.com/bytebuilders/resource-model
+github.com/bytebuilders/ui-wizards
 github.com/gomodules/apiversion
 github.com/gomodules/blobfs
 github.com/gomodules/cert
@@ -92,6 +93,7 @@ github.com/kubeform/website
 github.com/kubepack/installer
 github.com/kubepack/kubepack
 github.com/kubepack/lib-helm
+github.com/kubeshield/auditor
 github.com/kubeshield/identity-server
 github.com/kubeshield/installer
 github.com/kubevault/CHANGELOG
