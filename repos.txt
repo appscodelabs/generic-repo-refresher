@@ -1,4 +1,10 @@
 github.com/appscode/guard
+github.com/appscode/hugo-appscode
+github.com/appscode/hugo-kubeci
+github.com/appscode/hugo-kubeform
+github.com/appscode/hugo-kubeshield
+github.com/appscode/hugo-pharmer
+github.com/appscode/hugo-voyagermesh
 github.com/appscode/kubed
 github.com/appscode/kubedb-enterprise
 github.com/appscode/stash-enterprise
@@ -22,6 +28,7 @@ github.com/bytebuilders/deploy-button
 github.com/bytebuilders/govanityurls
 github.com/bytebuilders/license-verifier
 github.com/bytebuilders/resource-model
+github.com/bytebuilders/ui-wizards
 github.com/bytebuilders/ui-wizards
 github.com/gomodules/apiversion
 github.com/gomodules/blobfs
@@ -61,6 +68,7 @@ github.com/kmodules/openshift
 github.com/kmodules/peer-finder
 github.com/kmodules/prober
 github.com/kmodules/resource-metadata
+github.com/kmodules/schema-checker
 github.com/kmodules/security-policy-api
 github.com/kmodules/shared-informer
 github.com/kmodules/webhook-runtime
@@ -74,7 +82,6 @@ github.com/kubedb/mariadb
 github.com/kubedb/memcached
 github.com/kubedb/mongodb
 github.com/kubedb/mysql
-github.com/kubedb/replication-mode-detector
 github.com/kubedb/operator
 github.com/kubedb/percona-xtradb
 github.com/kubedb/pg-leader-election
@@ -82,7 +89,9 @@ github.com/kubedb/pgbouncer
 github.com/kubedb/postgres
 github.com/kubedb/proxysql
 github.com/kubedb/redis
+github.com/kubedb/replication-mode-detector
 github.com/kubedb/tests
+github.com/kubedb/website
 github.com/kubeform/bundles
 github.com/kubeform/CHANGELOG
 github.com/kubeform/docs
@@ -102,6 +111,7 @@ github.com/kubevault/docs
 github.com/kubevault/installer
 github.com/kubevault/operator
 github.com/kubevault/unsealer
+github.com/kubevault/website
 github.com/searchlight/grafana-operator
 github.com/searchlight/installer
 github.com/stashed/apimachinery
@@ -120,15 +130,7 @@ github.com/stashed/percona-xtradb
 github.com/stashed/postgres
 github.com/stashed/redis
 github.com/stashed/stash
+github.com/stashed/website
 github.com/voyagermesh/docs
 github.com/voyagermesh/installer
 github.com/voyagermesh/voyager
-github.com/appscode/hugo-appscode
-github.com/appscode/hugo-kubeci
-github.com/appscode/hugo-kubeform
-github.com/appscode/hugo-kubeshield
-github.com/appscode/hugo-pharmer
-github.com/appscode/hugo-voyagermesh
-github.com/kubedb/website
-github.com/kubevault/website
-github.com/stashed/website
