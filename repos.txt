@@ -73,6 +73,7 @@ github.com/kmodules/security-policy-api
 github.com/kmodules/shared-informer
 github.com/kmodules/webhook-runtime
 github.com/kubedb/apimachinery
+github.com/kubedb/bundles
 github.com/kubedb/CHANGELOG
 github.com/kubedb/cli
 github.com/kubedb/docs
@@ -93,6 +94,7 @@ github.com/kubedb/replication-mode-detector
 github.com/kubedb/tests
 github.com/kubedb/website
 github.com/kubeform/bundles
+github.com/kubeform/bundles
 github.com/kubeform/CHANGELOG
 github.com/kubeform/docs
 github.com/kubeform/installer
@@ -105,6 +107,7 @@ github.com/kubepack/lib-helm
 github.com/kubeshield/auditor
 github.com/kubeshield/identity-server
 github.com/kubeshield/installer
+github.com/kubevault/bundles
 github.com/kubevault/CHANGELOG
 github.com/kubevault/csi-driver
 github.com/kubevault/docs
@@ -115,6 +118,7 @@ github.com/kubevault/website
 github.com/searchlight/grafana-operator
 github.com/searchlight/installer
 github.com/stashed/apimachinery
+github.com/stashed/bundles
 github.com/stashed/bundles
 github.com/stashed/catalog
 github.com/stashed/CHANGELOG
@@ -131,6 +135,7 @@ github.com/stashed/postgres
 github.com/stashed/redis
 github.com/stashed/stash
 github.com/stashed/website
+github.com/voyagermesh/bundles
 github.com/voyagermesh/docs
 github.com/voyagermesh/installer
 github.com/voyagermesh/voyager
