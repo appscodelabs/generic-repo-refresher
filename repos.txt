@@ -6,6 +6,7 @@ github.com/appscode/hugo-kubeshield
 github.com/appscode/hugo-pharmer
 github.com/appscode/hugo-voyagermesh
 github.com/appscode/kubed
+github.com/appscode/kubedb-autoscaler
 github.com/appscode/kubedb-enterprise
 github.com/appscode/stash-enterprise
 github.com/appscodelabs/discord-mgr
