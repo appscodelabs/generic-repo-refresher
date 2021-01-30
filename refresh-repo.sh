@@ -65,6 +65,7 @@ refresh() {
     sed -i 's/go-version:\ 1.14/go-version:\ 1.15/g' *
     sed -i 's/go-version:\ ^1.14/go-version:\ ^1.15/g' *
     sed -i 's|/gh-tools/releases/download/v0.2.8/|/gh-tools/releases/download/v0.2.9/|g' *
+    sed -i 's|/gh-tools/releases/download/v0.2.9/|/gh-tools/releases/download/v0.2.10/|g' *
     sed -i 's|/release-automaton/releases/download/v0.0.33/|/release-automaton/releases/download/v0.0.34/|g' *
     sed -i 's|/hugo-tools/releases/download/v0.2.19/|/hugo-tools/releases/download/v0.2.20/|g' *
     popd
