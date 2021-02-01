@@ -60,6 +60,7 @@ github.com/kmodules/client-go
 github.com/kmodules/constants
 github.com/kmodules/crd-schema-fuzz
 github.com/kmodules/custom-resources
+github.com/kmodules/installer
 github.com/kmodules/jsonpatch-gen
 github.com/kmodules/leaderelection
 github.com/kmodules/monitoring-agent-api
