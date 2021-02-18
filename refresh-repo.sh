@@ -27,7 +27,7 @@ refresh() {
     sed -i 's/gcr.io\/distroless\/static/gcr.io\/distroless\/static-debian10/g' Makefile
     sed -i 's/gcr.io\/distroless\/static-debian10-debian10/gcr.io\/distroless\/static-debian10/g' Makefile
     sed -i 's/chart-testing:v3.0.0-rc.1/chart-testing:v3.0.0/g' Makefile
-    sed -i 's/?=\ 1.14/?=\ 1.15/g' Makefile
+    sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
     rm -rf hack/kubernetes/storageclass
     if test -f "hack/kubernetes/kind.yaml"; then
         cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
@@ -62,9 +62,9 @@ refresh() {
     sed -i 's|(v1.14.10 v1.16.9 v1.18.8 v1.19.1)|(v1.14.10 v1.16.9 v1.18.8 v1.20.0)|g' *
     sed -i 's|(v1.14.10 v1.16.9 v1.18.8 v1.20.0)|(v1.14.10 v1.16.15 v1.18.15 v1.20.2)|g' *
     # update GO
-    sed -i 's/Go\ 1.14/Go\ 1.15/g' *
-    sed -i 's/go-version:\ 1.14/go-version:\ 1.15/g' *
-    sed -i 's/go-version:\ ^1.14/go-version:\ ^1.15/g' *
+    sed -i 's/Go\ 1.15/Go\ 1.16/g' *
+    sed -i 's/go-version:\ 1.15/go-version:\ 1.16/g' *
+    sed -i 's/go-version:\ ^1.15/go-version:\ ^1.16/g' *
     sed -i 's|/gh-tools/releases/download/v0.2.8/|/gh-tools/releases/download/v0.2.9/|g' *
     sed -i 's|/gh-tools/releases/download/v0.2.9/|/gh-tools/releases/download/v0.2.10/|g' *
     sed -i 's|/release-automaton/releases/download/v0.0.33/|/release-automaton/releases/download/v0.0.34/|g' *
