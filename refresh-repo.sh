@@ -28,6 +28,8 @@ refresh() {
     sed -i 's/gcr.io\/distroless\/static-debian10-debian10/gcr.io\/distroless\/static-debian10/g' Makefile
     sed -i 's/chart-testing:v3.0.0-rc.1/chart-testing:v3.0.0/g' Makefile
     sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
+    sed -i 's|verify-modules verify-gen|verify-gen verify-modules|g' Makefile
+    make gen fmt || true
     rm -rf hack/kubernetes/storageclass
     if test -f "hack/kubernetes/kind.yaml"; then
         cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
