@@ -70,8 +70,9 @@ refresh() {
     sed -i 's/go-version:\ ^1.15/go-version:\ ^1.16/g' *
     sed -i 's|/gh-tools/releases/download/v0.2.8/|/gh-tools/releases/download/v0.2.9/|g' *
     sed -i 's|/gh-tools/releases/download/v0.2.9/|/gh-tools/releases/download/v0.2.10/|g' *
-    sed -i 's|/release-automaton/releases/download/v0.0.33/|/release-automaton/releases/download/v0.0.34/|g' *
+    sed -i 's|/release-automaton/releases/download/v0.0.34/|/release-automaton/releases/download/v0.0.35/|g' *
     sed -i 's|/hugo-tools/releases/download/v0.2.19/|/hugo-tools/releases/download/v0.2.20/|g' *
+    sed -i 's|/hugo-tools/releases/download/v0.2.20/|/hugo-tools/releases/download/v0.2.21/|g' *
     popd
     [ -z "$2" ] || (
         echo "$2"
