@@ -16,7 +16,7 @@ jobs:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
         with:
-          go-version: ^1.14
+          go-version: ^1.16
         id: go
 
       - name: Check out code into the Go module directory
@@ -24,13 +24,14 @@ jobs:
 
       - name: Install yq
         run: |
-          curl -fsSL -o yq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
-          chmod +x yq
-          sudo mv yq /usr/local/bin/yq
+          curl -fsSL -o yqq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
+          chmod +x yqq
+          sudo mv yqq /usr/local/bin/yqq
+          pip3 install yq
 
       - name: Install Kubernetes CLI
         run: |
-          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
@@ -46,6 +47,12 @@ jobs:
           chmod +x render-gotpl-linux-amd64
           sudo mv render-gotpl-linux-amd64 /usr/local/bin/render-gotpl
 
+      - name: Install gh-tools
+        run: |
+          curl -fsSL -O https://github.com/appscodelabs/gh-tools/releases/download/v0.2.12/gh-tools-linux-amd64
+          chmod +x gh-tools-linux-amd64
+          sudo mv gh-tools-linux-amd64 /usr/local/bin/gh-tools
+
       - name: Prepare git
         run: |
           git config --global user.name "1gtm"
@@ -60,6 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
         run: |
+          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=kubedb > repos.txt
           pip3 install pyyaml
           pip3 install ruamel.yaml
           ./refresh-repo.sh repos.txt

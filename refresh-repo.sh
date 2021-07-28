@@ -22,11 +22,13 @@ refresh() {
     sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     sed -i 's/alpine:3.10/alpine:latest/g' Makefile
     sed -i 's/debian:stretch/debian:buster/g' Makefile
+    sed -i 's/debian:stretch/debian:buster/g' Dockerfile.in || true
+    sed -i 's/debian:stretch/debian:buster/g' Dockerfile.dbg || true
     sed -i 's/gcr.io\/distroless\/base/gcr.io\/distroless\/base-debian10/g' Makefile
     sed -i 's/gcr.io\/distroless\/base-debian10-debian10/gcr.io\/distroless\/base-debian10/g' Makefile
     sed -i 's/gcr.io\/distroless\/static/gcr.io\/distroless\/static-debian10/g' Makefile
     sed -i 's/gcr.io\/distroless\/static-debian10-debian10/gcr.io\/distroless\/static-debian10/g' Makefile
-    sed -i 's/chart-testing:v3.0.0-rc.1/chart-testing:v3.0.0/g' Makefile
+    sed -i 's/chart-testing:v3.0.0/chart-testing:v3.4.0/g' Makefile
     sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
     sed -i 's|verify-modules verify-gen|verify-gen verify-modules|g' Makefile
     make gen fmt || true
@@ -49,28 +51,20 @@ refresh() {
 
     pushd .github/workflows/
     # update engineerd/setup-kind
-    sed -i 's|jetstack/cert-manager/releases/download/v1.0.4/|jetstack/cert-manager/releases/download/v1.2.0/|g' *
-    sed -i 's|engineerd/setup-kind@v0.1.0|engineerd/setup-kind@v0.5.0|g' *
-    sed -i 's|engineerd/setup-kind@v0.3.0|engineerd/setup-kind@v0.5.0|g' *
+    sed -i 's|jetstack/cert-manager/releases/download/v1.2.0/|jetstack/cert-manager/releases/download/v1.4.1/|g' *
     sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
-    sed -i 's|version: v0.7.0|version: v0.9.0|g' *
-    sed -i 's|version: v0.8.1|version: v0.9.0|g' *
-    sed -i 's|version: v0.9.0|version: v0.10.0|g' *
-    sed -i 's|\[v1.12.10, v1.13.12, v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.4\]|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.1\]|g' *
-    sed -i 's|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.1\]|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.4, v1.20.0\]|g' *
-    sed -i 's|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.20.0\]|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.4, v1.20.0\]|g' *
-    sed -i 's|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.4, v1.20.0\]|\[v1.14.10, v1.15.12, v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2\]|g' *
-    sed -i 's|\[v1.16.9, v1.17.5, v1.18.8, v1.19.4, v1.20.0\]|\[v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2\]|g' *
-    sed -i 's|(v1.12.10 v1.14.10 v1.16.9 v1.18.4)|(v1.14.10 v1.16.9 v1.18.8 v1.19.1)|g' *
-    sed -i 's|(v1.14.10 v1.16.9 v1.18.8 v1.19.1)|(v1.14.10 v1.16.9 v1.18.8 v1.20.0)|g' *
-    sed -i 's|(v1.14.10 v1.16.9 v1.18.8 v1.20.0)|(v1.14.10 v1.16.15 v1.18.15 v1.20.2)|g' *
+    sed -i 's|version: v0.10.0|version: v0.11.1|g' *
+    sed -i 's|\[v1.14.10, v1.15.12, v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2\]|\[v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2, v1.21.1\]|g' *
+     sed -i 's|(v1.14.10 v1.16.15 v1.18.15 v1.20.2)|(v1.16.15 v1.18.15 v1.20.2 v1.21.1)|g' *
     # update GO
     sed -i 's/Go\ 1.15/Go\ 1.16/g' *
     sed -i 's/go-version:\ 1.15/go-version:\ 1.16/g' *
     sed -i 's/go-version:\ ^1.15/go-version:\ ^1.16/g' *
     sed -i 's|/gh-tools/releases/download/v0.2.8/|/gh-tools/releases/download/v0.2.9/|g' *
     sed -i 's|/gh-tools/releases/download/v0.2.9/|/gh-tools/releases/download/v0.2.10/|g' *
+    sed -i 's|/gh-tools/releases/download/v0.2.10/|/gh-tools/releases/download/v0.2.12/|g' *
     sed -i 's|/release-automaton/releases/download/v0.0.34/|/release-automaton/releases/download/v0.0.35/|g' *
+    sed -i 's|/release-automaton/releases/download/v0.0.35/|/release-automaton/releases/download/v0.0.36/|g' *
     sed -i 's|/hugo-tools/releases/download/v0.2.19/|/hugo-tools/releases/download/v0.2.20/|g' *
     sed -i 's|/hugo-tools/releases/download/v0.2.20/|/hugo-tools/releases/download/v0.2.21/|g' *
     popd
