@@ -55,17 +55,13 @@ refresh() {
     sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
     sed -i 's|version: v0.10.0|version: v0.11.1|g' *
     sed -i 's|\[v1.14.10, v1.15.12, v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2\]|\[v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2, v1.21.1\]|g' *
-     sed -i 's|(v1.14.10 v1.16.15 v1.18.15 v1.20.2)|(v1.16.15 v1.18.15 v1.20.2 v1.21.1)|g' *
+    sed -i 's|(v1.14.10 v1.16.15 v1.18.15 v1.20.2)|(v1.16.15 v1.18.15 v1.21.1)|g' *
     # update GO
     sed -i 's/Go\ 1.15/Go\ 1.16/g' *
     sed -i 's/go-version:\ 1.15/go-version:\ 1.16/g' *
     sed -i 's/go-version:\ ^1.15/go-version:\ ^1.16/g' *
-    sed -i 's|/gh-tools/releases/download/v0.2.8/|/gh-tools/releases/download/v0.2.9/|g' *
-    sed -i 's|/gh-tools/releases/download/v0.2.9/|/gh-tools/releases/download/v0.2.10/|g' *
     sed -i 's|/gh-tools/releases/download/v0.2.10/|/gh-tools/releases/download/v0.2.12/|g' *
-    sed -i 's|/release-automaton/releases/download/v0.0.34/|/release-automaton/releases/download/v0.0.35/|g' *
     sed -i 's|/release-automaton/releases/download/v0.0.35/|/release-automaton/releases/download/v0.0.36/|g' *
-    sed -i 's|/hugo-tools/releases/download/v0.2.19/|/hugo-tools/releases/download/v0.2.20/|g' *
     sed -i 's|/hugo-tools/releases/download/v0.2.20/|/hugo-tools/releases/download/v0.2.21/|g' *
     popd
     [ -z "$2" ] || (
