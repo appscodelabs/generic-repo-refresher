@@ -12,7 +12,7 @@ REPO_ROOT=/tmp/generic-repo-refresher
 
 refresh() {
     echo "refreshing repository: $1"
-    rm -rf $REPO_ROOT
+    sudo rm -rf $REPO_ROOT
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
