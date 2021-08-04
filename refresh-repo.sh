@@ -25,6 +25,7 @@ refresh() {
     sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile
     sed -i '/nobody:nobody/d' Dockerfile.*
     sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile.*
+    sed -i 's|gcr.io/distroless/static-debian10:nonroot|gcr.io/distroless/static:nonroot|g' Makefile
     sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static:nonroot|g' Makefile
 
     sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
