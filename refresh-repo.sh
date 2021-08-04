@@ -18,6 +18,15 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
+
+    # https://github.com/GoogleContainerTools/distroless/pull/335
+    # https://github.com/GoogleContainerTools/distroless/blob/70f4a32ab305eec38d9d1c6e5bce2e3a9b92f877/base/BUILD#L10
+    sed -i '/nobody:nobody/d' Dockerfile
+    sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile
+    sed -i '/nobody:nobody/d' Dockerfile.*
+    sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile.*
+    sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static:nonroot|g' Makefile
+
     sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
     sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     sed -i 's/alpine:3.10/alpine:latest/g' Makefile
