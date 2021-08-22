@@ -59,6 +59,8 @@ refresh() {
     # fi
 
     pushd .github/workflows/ && {
+        # hugo
+        sed -i 's|0.71.1|0.87.0|g' *
         # update engineerd/setup-kind
         sed -i 's|jetstack/cert-manager/releases/download/v1.2.0/|jetstack/cert-manager/releases/download/v1.4.1/|g' *
         sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
