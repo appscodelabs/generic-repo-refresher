@@ -67,7 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
         run: |
-          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=appscode,bytebuilders,gomodules,kmodules,kubedb,kubeform,kubeguard,kubeops,kubepack,kubeshield,kubevault,open-viz,pharmer,searchlight,stashed,voyagermesh,wandrs > repos.txt
+          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=appscode,appscodelabs,bytebuilders,gomodules,kmodules,kubedb,kubeform,kubeguard,kubeops,kubepack,kubeshield,kubevault,open-viz,pharmer,searchlight,stashed,voyagermesh,wandrs > repos.txt
           pip3 install pyyaml
           pip3 install ruamel.yaml
           ./refresh-repo.sh repos.txt
