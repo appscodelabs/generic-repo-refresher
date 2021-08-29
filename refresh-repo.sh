@@ -78,6 +78,8 @@ refresh() {
         sed -i 's|/hugo-tools/releases/download/v0.2.20/|/hugo-tools/releases/download/v0.2.21/|g' *
         popd
     }
+    make gen || true
+    make fmt || true
     [ -z "$2" ] || (
         echo "$2"
         $2 || true
