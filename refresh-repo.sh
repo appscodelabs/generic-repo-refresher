@@ -23,12 +23,14 @@ refresh() {
     sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     sed -i 's/alpine:3.10/alpine:latest/g' Makefile
     sed -i 's/debian:stretch/debian:buster/g' Makefile
+    sed -i 's/debian:stretch/debian:bullseye/g' Makefile
     sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.in || true
     sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.dbg || true
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.in || true
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.dbg || true
     sed -i 's/chart-testing:v3.0.0/chart-testing:v3.4.0/g' Makefile
     sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
+    sed -i 's/?=\ 1.16/?=\ 1.17/g' Makefile
     sed -i 's|verify-modules verify-gen|verify-gen verify-modules|g' Makefile
 
     # https://github.com/GoogleContainerTools/distroless/pull/335
@@ -62,15 +64,15 @@ refresh() {
         # hugo
         sed -i 's|0.71.1|0.87.0|g' *
         # update engineerd/setup-kind
-        sed -i 's|jetstack/cert-manager/releases/download/v1.2.0/|jetstack/cert-manager/releases/download/v1.4.1/|g' *
+        sed -i 's|jetstack/cert-manager/releases/download/v1.4.1/|jetstack/cert-manager/releases/download/v1.5.3/|g' *
         sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
         sed -i 's|version: v0.10.0|version: v0.11.1|g' *
         sed -i 's|\[v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2, v1.21.1\]|\[v1.16.15, v1.17.17, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.0\]|g' *
         sed -i 's|(v1.16.15 v1.18.15 v1.21.1)|(v1.16.15 v1.18.19 v1.20.7 v1.22.0)|g' *
         # update GO
-        sed -i 's/Go\ 1.15/Go\ 1.16/g' *
-        sed -i 's/go-version:\ 1.15/go-version:\ 1.16/g' *
-        sed -i 's/go-version:\ ^1.15/go-version:\ ^1.16/g' *
+        sed -i 's/Go\ 1.16/Go\ 1.17/g' *
+        sed -i 's/go-version:\ 1.16/go-version:\ 1.17/g' *
+        sed -i 's/go-version:\ ^1.16/go-version:\ ^1.17/g' *
         sed -i 's|/gh-tools/releases/download/v0.2.10/|/gh-tools/releases/download/v0.2.12/|g' *
         sed -i 's|/release-automaton/releases/download/v0.0.35/|/release-automaton/releases/download/v0.0.36/|g' *
         sed -i 's|/hugo-tools/releases/download/v0.2.20/|/hugo-tools/releases/download/v0.2.21/|g' *
