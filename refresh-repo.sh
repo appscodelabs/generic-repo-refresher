@@ -39,8 +39,14 @@ refresh() {
     # sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile
     # sed -i '/nobody:nobody/d' Dockerfile.*
     # sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile.*
-    sed -i 's|gcr.io/distroless/static-debian10:nonroot|gcr.io/distroless/static:nonroot|g' Makefile
-    sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static:nonroot|g' Makefile
+
+    # DO NOT use nonroot base imge
+    # This causes https://github.com/tektoncd/triggers/issues/781
+    # or, https://githubmemory.com/repo/confluentinc/kafka-images/issues/76
+    # sed -i 's|gcr.io/distroless/static-debian10:nonroot|gcr.io/distroless/static:nonroot|g' Makefile
+    # sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static:nonroot|g' Makefile
+
+    sed -i 's|gcr.io/distroless/static:nonroot|gcr.io/distroless/static-debian10|g' Makefile
 
     make gen fmt || true
     rm -rf hack/kubernetes/storageclass
