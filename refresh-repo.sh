@@ -23,7 +23,7 @@ refresh() {
     sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     sed -i 's/alpine:3.10/alpine:latest/g' Makefile
     sed -i 's/debian:stretch/debian:buster/g' Makefile
-    sed -i 's/debian:stretch/debian:bullseye/g' Makefile
+    sed -i 's/debian:buster/debian:bullseye/g' Makefile
     sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.in || true
     sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.dbg || true
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.in || true
