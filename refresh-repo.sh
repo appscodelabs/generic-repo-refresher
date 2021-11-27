@@ -49,6 +49,8 @@ refresh() {
     sed -i 's|gcr.io/distroless/static:nonroot|gcr.io/distroless/static-debian10|g' Makefile
     sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static-debian11|g' Makefile
 
+    sed -i 's|gcr.io/distroless/base-debian10|gcr.io/distroless/base-debian11|g' Makefile
+
     make gen fmt || true
     rm -rf hack/kubernetes/storageclass
     if test -f "hack/kubernetes/kind.yaml"; then
