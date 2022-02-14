@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update repository config"
+COMMIT_MSG="Cancel concurrent CI runs for same pr/commit"
 
 REPO_ROOT=/tmp/generic-repo-refresher
 
@@ -58,6 +58,7 @@ refresh() {
     fi
 
     $GITHUB_WORKSPACE/hack/scripts/docker_buildx_fixer.py $(pwd)
+    $GITHUB_WORKSPACE/hack/scripts/ci_concurrency_fixer.py $(pwd)
 
     # if grep -q "Apache" hack/scripts/update-release-tracker.sh &> /dev/null; then
     #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/apache.sh hack/scripts/update-release-tracker.sh
