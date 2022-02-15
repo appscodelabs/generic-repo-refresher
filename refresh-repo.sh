@@ -59,6 +59,7 @@ refresh() {
 
     $GITHUB_WORKSPACE/hack/scripts/docker_buildx_fixer.py $(pwd)
     $GITHUB_WORKSPACE/hack/scripts/ci_concurrency_fixer.py $(pwd)
+    $GITHUB_WORKSPACE/hack/scripts/ci_concurrency_fixer.py $(pwd)
 
     # if grep -q "Apache" hack/scripts/update-release-tracker.sh &> /dev/null; then
     #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/apache.sh hack/scripts/update-release-tracker.sh
@@ -143,4 +144,5 @@ while IFS=, read -r -u9 repo cmd; do
     fi
     refresh "$repo" "$cmd"
     echo "################################################################################"
+    sleep 60
 done 9<$1
