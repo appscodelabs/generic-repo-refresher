@@ -1,4 +1,4 @@
-name: CI-2
+name: CI-3
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [master]
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -72,7 +72,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
         run: |
-          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=gomodules,kmodules > repos.txt
+          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=kubeguard,kubeshield,pharmer > repos.txt
           pip3 install pyyaml
           pip3 install ruamel.yaml
           ./refresh-repo.sh repos.txt
