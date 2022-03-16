@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="make fmt"
+COMMIT_MSG="Use Go 1.18"
 
 REPO_ROOT=/tmp/generic-repo-refresher
 
@@ -29,8 +29,11 @@ refresh() {
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.in || true
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.dbg || true
     sed -i 's/chart-testing:v3.0.0/chart-testing:v3.4.0/g' Makefile
+    sed -i 's/chart-testing:v3.4.0/chart-testing:v3.5.1/g' Makefile
+    sed -i 's/chart-testing:v3.5.0/chart-testing:v3.5.1/g' Makefile
     sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
     sed -i 's/?=\ 1.16/?=\ 1.17/g' Makefile
+    sed -i 's/?=\ 1.17/?=\ 1.18/g' Makefile
     sed -i 's|verify-modules verify-gen|verify-gen verify-modules|g' Makefile
 
     # https://github.com/GoogleContainerTools/distroless/pull/335
@@ -91,8 +94,11 @@ refresh() {
 
         # update GO
         sed -i 's/Go\ 1.16/Go\ 1.17/g' *
+        sed -i 's/Go\ 1.17/Go\ 1.18/g' *
         sed -i 's/go-version:\ 1.16/go-version:\ 1.17/g' *
+        sed -i 's/go-version:\ 1.17/go-version:\ 1.18/g' *
         sed -i 's/go-version:\ ^1.16/go-version:\ ^1.17/g' *
+        sed -i 's/go-version:\ ^1.17/go-version:\ ^1.18/g' *
         sed -i 's|/gh-tools/releases/download/v0.2.10/|/gh-tools/releases/download/v0.2.12/|g' *
         sed -i 's|/release-automaton/releases/download/v0.0.35/|/release-automaton/releases/download/v0.0.36/|g' *
         sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
