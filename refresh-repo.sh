@@ -99,6 +99,8 @@ refresh() {
         sed -i 's/go-version:\ 1.17/go-version:\ 1.18/g' *
         sed -i 's/go-version:\ ^1.16/go-version:\ ^1.17/g' *
         sed -i 's/go-version:\ ^1.17/go-version:\ ^1.18/g' *
+        sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
+        sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
         sed -i 's|/gh-tools/releases/download/v0.2.10/|/gh-tools/releases/download/v0.2.12/|g' *
         sed -i 's|/release-automaton/releases/download/v0.0.35/|/release-automaton/releases/download/v0.0.36/|g' *
         sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
