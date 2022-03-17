@@ -1,10 +1,10 @@
 name: CI-5
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  # push:
+  #   branches: [master]
+  # pull_request:
+  #   branches: [master]
   schedule:
     - cron: "0 10 * * *"
   workflow_dispatch:
