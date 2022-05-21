@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use Go 1.18"
+PR_BRANCH=grr #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Test against Kubernetes 1.24.0"
 
 REPO_ROOT=/tmp/generic-repo-refresher
 
