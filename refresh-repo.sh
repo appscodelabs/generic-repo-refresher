@@ -20,20 +20,22 @@ refresh() {
     git checkout -b $PR_BRANCH
 
     sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
-    sed -i 's/alpine:3.11/alpine:latest/g' Makefile
+    # sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     sed -i 's/alpine:3.10/alpine:latest/g' Makefile
-    sed -i 's/debian:stretch/debian:buster/g' Makefile
+    # sed -i 's/debian:stretch/debian:buster/g' Makefile
     sed -i 's/debian:buster/debian:bullseye/g' Makefile
-    sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.in || true
-    sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.dbg || true
+    # sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.in || true
+    # sed -i 's/debian:stretch/debian:bullseye/g' Dockerfile.dbg || true
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.in || true
     sed -i 's/debian:buster/debian:bullseye/g' Dockerfile.dbg || true
-    sed -i 's/chart-testing:v3.0.0/chart-testing:v3.4.0/g' Makefile
-    sed -i 's/chart-testing:v3.4.0/chart-testing:v3.5.1/g' Makefile
+    # sed -i 's/chart-testing:v3.0.0/chart-testing:v3.4.0/g' Makefile
+    # sed -i 's/chart-testing:v3.4.0/chart-testing:v3.5.1/g' Makefile
     sed -i 's/chart-testing:v3.5.0/chart-testing:v3.5.1/g' Makefile
-    sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
-    sed -i 's/?=\ 1.16/?=\ 1.17/g' Makefile
-    sed -i 's/?=\ 1.17/?=\ 1.18/g' Makefile
+    # sed -i 's/?=\ 1.15/?=\ 1.16/g' Makefile
+    # sed -i 's/?=\ 1.16/?=\ 1.17/g' Makefile
+    # sed -i 's/?=\ 1.17/?=\ 1.18/g' Makefile
+    sed -i 's/?=\ 1.18/?=\ 1.19/g' Makefile
+    sed -i 's|appscode/gengo:release-1.24|appscode/gengo:release-1.25|g' Makefile
     sed -i 's|verify-modules verify-gen|verify-gen verify-modules|g' Makefile
 
     # https://github.com/GoogleContainerTools/distroless/pull/335
@@ -51,7 +53,6 @@ refresh() {
 
     sed -i 's|gcr.io/distroless/static:nonroot|gcr.io/distroless/static-debian10|g' Makefile
     sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static-debian11|g' Makefile
-
     sed -i 's|gcr.io/distroless/base-debian10|gcr.io/distroless/base-debian11|g' Makefile
 
     make gen fmt || true
@@ -76,15 +77,14 @@ refresh() {
 
     pushd .github/workflows/ && {
         # hugo
-        sed -i 's|0.87.0|0.94.2|g' *
-        sed -i 's|0.93.3|0.94.2|g' *
-        sed -i 's|0.94.1|0.94.2|g' *
-        sed -i 's|0.94.2|0.99.1|g' *
+        sed -i 's|0.99.1|0.104.0|g' *
+
         # update engineerd/setup-kind
-        sed -i 's|jetstack/cert-manager/releases/download/v1.4.1/|jetstack/cert-manager/releases/download/v1.5.3/|g' *
+        sed -i 's|jetstack/cert-manager/releases/download/v1.5.3/|cert-manager/cert-manager/releases/download/v1.9.1/|g' *
+
         sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
-        sed -i 's|version: v0.10.0|version: v0.11.1|g' *
-        sed -i 's|version: v0.11.1|version: v0.14.0|g' *
+        # KIND
+        sed -i 's|version: v0.14.0|version: v0.16.0|g' *
         # sed -i 's|\[v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2, v1.21.1\]|\[v1.16.15, v1.17.17, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.0\]|g' *
         # sed -i 's|(v1.16.15 v1.18.15 v1.21.1)|(v1.16.15 v1.18.19 v1.20.7 v1.22.0)|g' *
         # sed -i 's|\[v1.16.15, v1.17.17, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.0\]|\[v1.16.15, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3\]|g' *
@@ -98,21 +98,23 @@ refresh() {
         sed -i 's|(v1.19.11 v1.21.2 v1.23.3)|(v1.18.20 v1.20.15 v1.22.9 v1.24.0)|g' *
 
         # update GO
-        sed -i 's/Go\ 1.16/Go\ 1.17/g' *
-        sed -i 's/Go\ 1.17/Go\ 1.18/g' *
-        sed -i 's/go-version:\ 1.16/go-version:\ 1.17/g' *
-        sed -i 's/go-version:\ 1.17/go-version:\ 1.18/g' *
-        sed -i 's/go-version:\ ^1.16/go-version:\ ^1.17/g' *
-        sed -i 's/go-version:\ ^1.17/go-version:\ ^1.18/g' *
+        sed -i 's/Go\ 1.18/Go\ 1.19/g' *
+        sed -i 's/go-version:\ 1.18/go-version:\ 1.19/g' *
+        sed -i 's/go-version:\ ^1.18/go-version:\ ^1.19/g' *
         sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
         sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
-        sed -i 's|/gh-tools/releases/download/v0.2.10/|/gh-tools/releases/download/v0.2.12/|g' *
-        sed -i 's|/release-automaton/releases/download/v0.0.35/|/release-automaton/releases/download/v0.0.36/|g' *
+        sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
         sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
-        sed -i 's|/hugo-tools/releases/download/v0.2.20/|/hugo-tools/releases/download/v0.2.21/|g' *
+        sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
         popd
     }
     [ -f go.mod ] && {
+        sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
+        sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
+        sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
+        sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
+        sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
+
         go get github.com/modern-go/reflect2@v1.0.2
         go get github.com/json-iterator/go@v1.1.12
         go mod tidy
