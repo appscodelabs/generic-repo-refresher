@@ -5,17 +5,17 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=grr #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Test against Kubernetes 1.24.0"
+PR_BRANCH=k1252 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Test against Kubernetes 1.25.0"
 
-REPO_ROOT=/tmp/generic-repo-refresher
+REPO_ROOT=/tmp/g1256
 
 refresh() {
     echo "refreshing repository: $1"
-    sudo rm -rf $REPO_ROOT
+    rm -rf $REPO_ROOT
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
-    git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
+    git clone --no-tags --no-recurse-submodules --depth=1 git@github.com:$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
@@ -77,7 +77,7 @@ refresh() {
 
     pushd .github/workflows/ && {
         # hugo
-        sed -i 's|0.99.1|0.104.0|g' *
+        sed -i 's|0.99.1|0.100.2|g' *
 
         # update engineerd/setup-kind
         sed -i 's|jetstack/cert-manager/releases/download/v1.5.3/|cert-manager/cert-manager/releases/download/v1.9.1/|g' *
