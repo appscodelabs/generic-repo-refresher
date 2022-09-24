@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k1252 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Test against Kubernetes 1.25.0"
+PR_BRANCH=go19 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Use Go 1.19"
 
 REPO_ROOT=/tmp/g1256
 
@@ -18,6 +18,8 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 git@github.com:$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
+
+
 
     sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
     # sed -i 's/alpine:3.11/alpine:latest/g' Makefile
@@ -35,6 +37,9 @@ refresh() {
     # sed -i 's/?=\ 1.16/?=\ 1.17/g' Makefile
     # sed -i 's/?=\ 1.17/?=\ 1.18/g' Makefile
     sed -i 's/?=\ 1.18/?=\ 1.19/g' Makefile
+    sed -i 's|appscode/golang-dev:1.16|appscode/golang-dev:1.19|g' Makefile
+    sed -i 's|appscode/golang-dev:1.17|appscode/golang-dev:1.19|g' Makefile
+    sed -i 's|appscode/golang-dev:1.18|appscode/golang-dev:1.19|g' Makefile
     sed -i 's|appscode/gengo:release-1.24|appscode/gengo:release-1.25|g' Makefile
     sed -i 's|verify-modules verify-gen|verify-gen verify-modules|g' Makefile
 
@@ -55,7 +60,7 @@ refresh() {
     sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static-debian11|g' Makefile
     sed -i 's|gcr.io/distroless/base-debian10|gcr.io/distroless/base-debian11|g' Makefile
 
-    make gen fmt || true
+    make fmt || true
     rm -rf hack/kubernetes/storageclass
     if test -f "hack/kubernetes/kind.yaml"; then
         cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
@@ -95,6 +100,7 @@ refresh() {
         #sed -i 's|\[v1.16.15, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3\]|\[v1.18.20, v1.19.16, v1.20.15, v1.21.12, v1.22.9, v1.23.6, v1.24.0\]|g' *
         #sed -i 's|\[v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3\]|\[v1.18.20, v1.19.16, v1.20.15, v1.21.12, v1.22.9, v1.23.6, v1.24.0\]|g' *
         sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.12, v1.22.9, v1.23.6, v1.24.0\]|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|g' *
+        sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.12, v1.22.9, v1.23.6, v1.24.0, , v1.25.0\]|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|g' *
 
         # sed -i 's|\[v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3\]|\[v1.19.16, v1.20.15, v1.21.12, v1.22.9, v1.23.6, v1.24.0\]|g' *
         sed -i 's|\[v1.19.16, v1.20.15, v1.21.12, v1.22.9, v1.23.6, v1.24.0\]|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|g' *
@@ -123,12 +129,12 @@ refresh() {
         sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
         sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
 
-        go get github.com/modern-go/reflect2@v1.0.2
-        go get github.com/json-iterator/go@v1.1.12
+        # go get github.com/modern-go/reflect2@v1.0.2
+        # go get github.com/json-iterator/go@v1.1.12
         go mod tidy
         go mod vendor
     }
-    make gen || true
+    # make gen || true
     make fmt || true
     [ -z "$2" ] || (
         echo "$2"
@@ -175,5 +181,5 @@ while IFS=, read -r -u9 repo cmd; do
     fi
     refresh "$repo" "$cmd"
     echo "################################################################################"
-    sleep 60
+    # sleep 60
 done 9<$1
