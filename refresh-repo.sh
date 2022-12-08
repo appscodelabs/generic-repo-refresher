@@ -16,7 +16,7 @@ refresh() {
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
     git clone --no-tags --no-recurse-submodules --depth=1 git@github.com:$1.git
-    cd $(ls -b1)
+    cd $(ls -b1) || exit 1
     git checkout -b $PR_BRANCH
 
     if test -d .github/workflows/; then
