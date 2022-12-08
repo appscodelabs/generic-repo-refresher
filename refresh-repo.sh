@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=go19 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use Go 1.19"
+COMMIT_MSG="Run GH actions on ubuntu-20.04"
 
 REPO_ROOT=/tmp/g1256
 
