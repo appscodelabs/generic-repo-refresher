@@ -15,7 +15,7 @@ refresh() {
     rm -rf $REPO_ROOT
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
-    git clone --no-tags --no-recurse-submodules --depth=1 git@github.com:$1.git
+    git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1) || exit 1
     git checkout -b $PR_BRANCH
 
