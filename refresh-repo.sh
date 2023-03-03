@@ -15,7 +15,7 @@ refresh() {
     rm -rf $REPO_ROOT
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
-    git clone --no-tags --no-recurse-submodules --depth=1 git@github.com:$1.git
+    git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${LGTM_GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
@@ -75,7 +75,9 @@ refresh() {
     #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/enterprise.sh hack/scripts/update-release-tracker.sh
     # fi
 
-    pushd .github/workflows/ && {
+    [ -d .github/workflows ] && {
+        pushd .github/workflows
+
         # hugo
         sed -i 's|0.100.2|0.111.1|g' *
 
@@ -101,19 +103,19 @@ refresh() {
         # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
         popd
     }
-    [ -f go.mod ] && {
-        sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
-        sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
-        sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
-        sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
-        sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
+    # [ -f go.mod ] && {
+    #     sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
+    #     sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
+    #     sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
+    #     sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
+    #     sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
 
-        go get github.com/modern-go/reflect2@v1.0.2
-        go get github.com/json-iterator/go@v1.1.12
-        go mod tidy
-        go mod vendor
-    }
-    make gen || true
+    #     go get github.com/modern-go/reflect2@v1.0.2
+    #     go get github.com/json-iterator/go@v1.1.12
+    #     go mod tidy
+    #     go mod vendor
+    # }
+    # make gen || true
     make fmt || true
     [ -z "$2" ] || (
         echo "$2"
@@ -160,5 +162,5 @@ while IFS=, read -r -u9 repo cmd; do
     fi
     refresh "$repo" "$cmd"
     echo "################################################################################"
-    sleep 60
+    sleep 5
 done 9<$1
