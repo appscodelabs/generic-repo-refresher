@@ -105,18 +105,19 @@ refresh() {
         # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
         popd
     }
-    # [ -f go.mod ] && {
-    #     sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
-    #     sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
-    #     sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
-    #     sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
-    #     sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
+    [ -f go.mod ] && {
+        sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
+        sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
+        sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
+        sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
+        sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
 
-    #     go get github.com/modern-go/reflect2@v1.0.2
-    #     go get github.com/json-iterator/go@v1.1.12
-    #     go mod tidy
-    #     go mod vendor
-    # }
+        go get golang.org/x/net@v0.7.0
+        go get github.com/modern-go/reflect2@v1.0.2
+        go get github.com/json-iterator/go@v1.1.12
+        go mod tidy
+        go mod vendor
+    }
     # make gen || true
     make fmt || true
     [ -z "$2" ] || (
