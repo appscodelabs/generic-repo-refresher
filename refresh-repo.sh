@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=k1260 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Test against Kubernetes 1.26.0"
+COMMIT_MSG="Update wrokflows (Go 1.20, k8s 1.26)"
 
 REPO_ROOT=/tmp/g1260
 
@@ -18,6 +18,8 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${LGTM_GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
+
+    sed -i 's/?=\ 1.19/?=\ 1.20/g' Makefile
 
     # sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
     # sed -i 's/alpine:3.11/alpine:latest/g' Makefile
