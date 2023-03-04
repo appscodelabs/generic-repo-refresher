@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=k1260 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update wrokflows (Go 1.20, k8s 1.26)"
+COMMIT_MSG="Update workflows (Go 1.20, k8s 1.26)"
 
 REPO_ROOT=/tmp/g1260
 
@@ -81,7 +81,7 @@ refresh() {
         pushd .github/workflows
 
         # hugo
-        sed -i 's|0.100.2|0.111.1|g' *
+        sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
 
         # update engineerd/setup-kind
         sed -i 's|cert-manager/cert-manager/releases/download/v1.9.1/|cert-manager/cert-manager/releases/download/v1.11.0/|g' *
@@ -96,8 +96,14 @@ refresh() {
 
         # update GO
         sed -i 's/Go\ 1.19/Go\ 1.20/g' *
+
+
+
+
         sed -i 's/go-version:\ 1.19/go-version:\ 1.20/g' *
         sed -i 's/go-version:\ ^1.19/go-version:\ ^1.20/g' *
+        sed -i "s/go-version:\ 1.20/go-version:\ '1.20'/g" *
+        sed -i "s/go-version:\ ^1.20/go-version:\ '1.20'/g" *
         sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
         sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
         # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
@@ -112,10 +118,14 @@ refresh() {
         sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
         sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
 
-        go get golang.org/x/net@v0.7.0
-        go get kmodules.xyz/resource-metadata@v0.15.0
-        go get github.com/modern-go/reflect2@v1.0.2
-        go get github.com/json-iterator/go@v1.1.12
+        go mod edit \
+            -require=github.com/modern-go/reflect2@v1.0.2 \
+            -require=github.com/json-iterator/go@v1.1.12 \
+            -require=golang.org/x/net@v0.7.0 \
+            -require=golang.org/x/crypto@v0.6.0 \
+            -require=go.bytebuilders.dev/license-proxyserver@v0.0.3
+            # -require=kmodules.xyz/resource-metadata@v0.15.0
+
         go mod tidy
         go mod vendor
     }
@@ -166,5 +176,5 @@ while IFS=, read -r -u9 repo cmd; do
     fi
     refresh "$repo" "$cmd"
     echo "################################################################################"
-    sleep 5
+    # sleep 10
 done 9<$1
