@@ -7,3 +7,5 @@ kubeform
 kubevault
 voyagermesh
 kubeops,open-viz
+kubestash
+x-helm

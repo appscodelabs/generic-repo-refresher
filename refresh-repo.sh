@@ -5,21 +5,27 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k1260 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update workflows (Go 1.20, k8s 1.26)"
+PR_BRANCH=k8s-1310 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Test against k8s 1.31"
 
-REPO_ROOT=/tmp/g1260
+REPO_ROOT=/tmp/g1271
 
 refresh() {
     echo "refreshing repository: $1"
     rm -rf $REPO_ROOT
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
-    git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${LGTM_GITHUB_TOKEN}@$1.git
+    git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
-    sed -i 's/?=\ 1.19/?=\ 1.20/g' Makefile
+    sed -i 's|FROM appscode/dlv:1.8.3|FROM ghcr.io/appscode/dlv:1.22|g' Dockerfile.dbg
+    sed -i 's|FROM appscode/dlv:1.20.1|FROM ghcr.io/appscode/dlv:1.22|g' Dockerfile.dbg
+
+    # sed -i 's|?= appscode/gengo:release-1.20|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
+    # sed -i 's|?= appscode/gengo:release-1.21|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
+    # sed -i 's|?= appscode/gengo:release-1.24|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
+    sed -i 's|?= appscode/gengo:release-1.25|?= ghcr.io/appscode/gengo:release-1.29|g' Makefile
 
     # sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
     # sed -i 's/alpine:3.11/alpine:latest/g' Makefile
@@ -46,6 +52,12 @@ refresh() {
     # sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile
     # sed -i '/nobody:nobody/d' Dockerfile.*
     # sed -i 's|USER 65535:65535|USER nobody|g' Dockerfile.*
+
+    # ref: https://stackoverflow.com/a/30717770
+
+    # sed -i 's|USER nobody|USER 65534|g' Dockerfile || true
+    # sed -i 's|USER nobody|USER 65534|g' Dockerfile.* || true
+    # find . -type f -name 'Dockerfile*' -exec sed -i 's|USER nobody|USER 65534|g' {} \;
 
     # DO NOT use nonroot base imge
     # This causes https://github.com/tektoncd/triggers/issues/781
@@ -80,61 +92,78 @@ refresh() {
     [ -d .github/workflows ] && {
         pushd .github/workflows
 
-        # hugo
-        sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
+    #     # hugo
+    #     sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
 
-        # update engineerd/setup-kind
-        sed -i 's|cert-manager/cert-manager/releases/download/v1.9.1/|cert-manager/cert-manager/releases/download/v1.11.0/|g' *
+    #     # update engineerd/setup-kind
+    #     sed -i 's|cert-manager/cert-manager/releases/download/v1.9.1/|cert-manager/cert-manager/releases/download/v1.11.0/|g' *
 
-        # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
-        # KIND
-        sed -i 's|version: v0.16.0|version: v0.17.0|g' *
+    #     # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
+    #     # KIND
+    #     sed -i 's|version: v0.16.0|version: v0.17.0|g' *
 
-        sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|g' *
-        sed -i 's|\[v1.18.20, v1.20.15, v1.22.15, v1.24.6, v1.25.2\]|\[v1.20.15, v1.22.15, v1.24.7, v1.26.0\]|g' *
-        sed -i 's|(v1.18.20 v1.20.15 v1.22.15 v1.24.6 v1.25.2)|(v1.20.15 v1.22.15 v1.24.7 v1.26.0)|g' *
+        # sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|g' *
+        # sed -i 's|\[v1.18.20, v1.20.15, v1.22.15, v1.24.6, v1.25.2\]|\[v1.20.15, v1.22.15, v1.24.7, v1.26.0\]|g' *
+        # sed -i 's|(v1.18.20 v1.20.15 v1.22.15 v1.24.6 v1.25.2)|(v1.20.15 v1.22.15 v1.24.7 v1.26.0)|g' *
 
-        # update GO
-        sed -i 's/Go\ 1.19/Go\ 1.20/g' *
+        # sed -i 's|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|\[v1.19.16, v1.20.15, v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.0\]|g' *
+        # sed -i 's|\[v1.20.15, v1.22.15, v1.24.7, v1.26.0\]|\[v1.19.16, v1.21.14, v1.23.17, v1.25.8, v1.27.0\]|g' *
+        # sed -i 's|(v1.20.15 v1.22.15 v1.24.7 v1.26.0)|(v1.19.16 v1.21.14 v1.23.17 v1.25.8 v1.27.0)|g' *
 
+        # sed -i 's|\[v1.19.16, v1.20.15, v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.0\]|\[v1.19.16, v1.20.15, v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.1\]|g' *
+        # sed -i 's|\[v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.0\]|\[v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.1\]|g' *
+        # sed -i 's|\[v1.19.16, v1.21.14, v1.23.17, v1.25.8, v1.27.0\]|\[v1.19.16, v1.21.14, v1.23.17, v1.25.8, v1.27.1\]|g' *
+        # sed -i 's|(v1.19.16 v1.21.14 v1.23.17 v1.25.8 v1.27.0)|(v1.19.16 v1.21.14 v1.23.17 v1.25.8 v1.27.1)|g' *
 
+        sed -i 's|(v1.20.15 v1.22.15 v1.24.7 v1.26.0)|(v1.26.15 v1.31.0)|g' *
+        sed -i 's|\[v1.20.15, v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.1, v1.28.0, v1.29.0\]|\[v1.26.15, v1.27.16, v1.28.9, v1.29.7, v1.30.3, v1.31.0\]|g' *
+        sed -i 's|\[v1.25.16, v1.26.15, v1.27.13, v1.28.9, v1.29.4, v1.30.0\]|\[v1.26.15, v1.27.16, v1.28.9, v1.29.7, v1.30.3, v1.31.0\]|g' *
+        sed -i 's|\[v1.19.16, v1.20.15, v1.21.14, v1.22.17, v1.23.17, v1.24.12, v1.25.8, v1.26.3, v1.27.1\]|\[v1.26.15, v1.27.16, v1.28.9, v1.29.7, v1.30.3, v1.31.0\]|g' *
 
+    #     # update GO
+    #     sed -i 's/Go\ 1.19/Go\ 1.20/g' *
 
-        sed -i 's/go-version:\ 1.19/go-version:\ 1.20/g' *
-        sed -i 's/go-version:\ ^1.19/go-version:\ ^1.20/g' *
-        sed -i "s/go-version:\ 1.20/go-version:\ '1.20'/g" *
-        sed -i "s/go-version:\ ^1.20/go-version:\ '1.20'/g" *
-        sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
-        sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
-        # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
-        # sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
-        # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
+    #     sed -i 's/go-version:\ 1.19/go-version:\ 1.20/g' *
+    #     sed -i 's/go-version:\ ^1.19/go-version:\ ^1.20/g' *
+    #     sed -i "s/go-version:\ 1.20/go-version:\ '1.20'/g" *
+    #     sed -i "s/go-version:\ ^1.20/go-version:\ '1.20'/g" *
+    #     sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
+    #     sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
+    #     # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
+    #     # sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
+    #     # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
         popd
     }
-    [ -f go.mod ] && {
-        sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
-        sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
-        sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
-        sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
-        sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
 
-        go mod edit \
-            -require=github.com/modern-go/reflect2@v1.0.2 \
-            -require=github.com/json-iterator/go@v1.1.12 \
-            -require=golang.org/x/net@v0.7.0 \
-            -require=golang.org/x/crypto@v0.6.0 \
-            -require=go.bytebuilders.dev/license-proxyserver@v0.0.3
-            # -require=kmodules.xyz/resource-metadata@v0.15.0
+    # [ -f go.mod ] && {
+    #     go mod tidy
+    #     go mod vendor
+    # }
 
-        go mod tidy
-        go mod vendor
-    }
-    # make gen || true
-    make fmt || true
-    [ -z "$2" ] || (
-        echo "$2"
-        $2 || true
-    )
+    # [ -f go.mod ] && {
+    #     sed -i 's|ioutil.ReadFile|os.ReadFile|g' `grep 'ioutil.ReadFile' -rl *`
+    #     sed -i 's|ioutil.WriteFile|os.WriteFile|g' `grep 'ioutil.WriteFile' -rl *`
+    #     sed -i 's|ioutil.ReadAll|io.ReadAll|g' `grep 'ioutil.ReadAll' -rl *`
+    #     sed -i 's|ioutil.TempDir|os.MkdirTemp|g' `grep 'ioutil.TempDir' -rl *`
+    #     sed -i 's|ioutil.TempFile|os.CreateTemp|g' `grep 'ioutil.TempFile' -rl *`
+
+    #     go mod edit \
+    #         -require=github.com/modern-go/reflect2@v1.0.2 \
+    #         -require=github.com/json-iterator/go@v1.1.12 \
+    #         -require=golang.org/x/net@v0.7.0 \
+    #         -require=golang.org/x/crypto@v0.6.0 \
+    #         -require=go.bytebuilders.dev/license-proxyserver@v0.0.3
+    #         # -require=kmodules.xyz/resource-metadata@v0.15.0
+
+    #     go mod tidy
+    #     go mod vendor
+    # }
+    # # make gen || true
+    # make fmt || true
+    # [ -z "$2" ] || (
+    #     echo "$2"
+    #     $2 || true
+    # )
     git add --all
     if git diff --exit-code -s HEAD; then
         echo "Repository $1 is up-to-date."
