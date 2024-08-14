@@ -131,6 +131,16 @@ refresh() {
         sed -i 's|ubuntu-20.04|ubuntu-latest|g' *
 
         # update GO
+        sed -i 's/Go\ 1.20/Go\ 1.23/g' *
+        sed -i "s/go-version:\ 1.20/go-version:\ '1.23'/g" *
+        sed -i "s/go-version:\ ^1.20/go-version:\ '1.23'/g" *
+        sed -i "s/go-version:\ '1.20'/go-version:\ '1.23'/g" *
+
+        sed -i 's/Go\ 1.21/Go\ 1.23/g' *
+        sed -i "s/go-version:\ 1.21/go-version:\ '1.23'/g" *
+        sed -i "s/go-version:\ ^1.21/go-version:\ '1.23'/g" *
+        sed -i "s/go-version:\ '1.21'/go-version:\ '1.23'/g" *
+
         sed -i 's/Go\ 1.22/Go\ 1.23/g' *
         sed -i "s/go-version:\ 1.22/go-version:\ '1.23'/g" *
         sed -i "s/go-version:\ ^1.22/go-version:\ '1.23'/g" *
