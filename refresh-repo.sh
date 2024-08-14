@@ -29,6 +29,9 @@ refresh() {
     # sed -i 's|?= appscode/gengo:release-1.24|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
     sed -i 's|?= appscode/gengo:release-1.25|?= ghcr.io/appscode/gengo:release-1.29|g' Makefile
 
+    sed -i 's|chart-testing:v3.5.1|chart-testing:v3.11.0|g' Makefile
+    sed -i 's|chart-testing:v3.8.0|chart-testing:v3.11.0|g' Makefile
+
     # sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
     # sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     # sed -i 's/alpine:3.10/alpine:latest/g' Makefile
