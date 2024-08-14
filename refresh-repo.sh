@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k8s-12812 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update k8s test versions"
+PR_BRANCH=go-123 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Use Go 1.23"
 
 REPO_ROOT=/tmp/g1271
 
@@ -21,6 +21,8 @@ refresh() {
 
     sed -i 's|FROM appscode/dlv:1.8.3|FROM ghcr.io/appscode/dlv:1.22|g' Dockerfile.dbg
     sed -i 's|FROM appscode/dlv:1.20.1|FROM ghcr.io/appscode/dlv:1.22|g' Dockerfile.dbg
+
+    sed -i 's/?=\ 1.22/?=\ 1.23/g' Makefile
 
     # sed -i 's|?= appscode/gengo:release-1.20|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
     # sed -i 's|?= appscode/gengo:release-1.21|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
@@ -123,13 +125,12 @@ refresh() {
         sed -i 's|\[v1.25.16, v1.26.15, v1.27.13, v1.28.9, v1.29.4, v1.30.0\]|\[v1.26.15, v1.27.16, v1.28.12, v1.29.7, v1.30.3, v1.31.0\]|g' *
         sed -i 's|\[v1.27.3\]|\[v1.30.3\]|g' *
 
-    #     # update GO
-    #     sed -i 's/Go\ 1.19/Go\ 1.20/g' *
+        # update GO
+        sed -i 's/Go\ 1.22/Go\ 1.23/g' *
+        sed -i "s/go-version:\ 1.22/go-version:\ '1.23'/g" *
+        sed -i "s/go-version:\ ^1.22/go-version:\ '1.23'/g" *
+        sed -i "s/go-version:\ '1.22'/go-version:\ '1.23'/g" *
 
-    #     sed -i 's/go-version:\ 1.19/go-version:\ 1.20/g' *
-    #     sed -i 's/go-version:\ ^1.19/go-version:\ ^1.20/g' *
-    #     sed -i "s/go-version:\ 1.20/go-version:\ '1.20'/g" *
-    #     sed -i "s/go-version:\ ^1.20/go-version:\ '1.20'/g" *
     #     sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
     #     sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
     #     # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
