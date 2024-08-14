@@ -72,7 +72,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
         run: |
-          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=bytebuilders,kubepack,searchlight > repos.txt
+          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=appscode-cloud,kubepack,ops-center,kluster-manager,kluster-api > repos.txt
           pip3 install pyyaml
           pip3 install ruamel.yaml
           ./refresh-repo.sh repos.txt
