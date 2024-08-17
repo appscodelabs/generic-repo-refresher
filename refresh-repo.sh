@@ -149,6 +149,9 @@ refresh() {
         sed -i "s/go-version:\ ^1.22/go-version:\ '1.23'/g" *
         sed -i "s/go-version:\ '1.22'/go-version:\ '1.23'/g" *
 
+        # update node
+        sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
+
     #     sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
     #     sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
     #     # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
