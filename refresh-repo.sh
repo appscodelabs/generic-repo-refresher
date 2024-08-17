@@ -128,7 +128,8 @@ refresh() {
         sed -i 's|\[v1.25.16, v1.26.15, v1.27.13, v1.28.9, v1.29.4, v1.30.0\]|\[v1.26.15, v1.27.16, v1.28.12, v1.29.7, v1.30.3, v1.31.0\]|g' *
         sed -i 's|\[v1.27.3\]|\[v1.30.3\]|g' *
 
-        sed -i 's|ubuntu-20.04|ubuntu-latest|g' *
+        sed -i 's|ubuntu-20.04|ubuntu-24.04|g' *
+        sed -i 's|ubuntu-latest|ubuntu-24.04|g' *
 
         # update GO
         sed -i 's/Go\ 1.20/Go\ 1.23/g' *
