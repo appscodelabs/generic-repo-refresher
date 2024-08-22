@@ -19,8 +19,8 @@ refresh() {
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
-    sed -i 's|FROM appscode/dlv:1.8.3|FROM ghcr.io/appscode/dlv:1.22|g' Dockerfile.dbg
-    sed -i 's|FROM appscode/dlv:1.20.1|FROM ghcr.io/appscode/dlv:1.22|g' Dockerfile.dbg
+    sed -i 's|FROM appscode/dlv:1.22.0|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
+    sed -i 's|FROM appscode/dlv:1.22|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
 
     sed -i 's/?=\ 1.22/?=\ 1.23/g' Makefile
 
