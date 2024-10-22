@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=kind-24 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use KIND v0.24.0"
+PR_BRANCH=deb-12 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Use debian:12 base image"
 
 REPO_ROOT=/tmp/g1271
 
@@ -21,6 +21,8 @@ refresh() {
 
     sed -i 's|FROM appscode/dlv:1.22.0|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
     sed -i 's|FROM appscode/dlv:1.22|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
+    sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
+    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
 
     sed -i 's/?=\ 1.22/?=\ 1.23/g' Makefile
 
@@ -73,6 +75,10 @@ refresh() {
     # sed -i 's|gcr.io/distroless/static:nonroot|gcr.io/distroless/static-debian10|g' Makefile
     # sed -i 's|gcr.io/distroless/static-debian10|gcr.io/distroless/static-debian11|g' Makefile
     # sed -i 's|gcr.io/distroless/base-debian10|gcr.io/distroless/base-debian11|g' Makefile
+
+    # Use bookworm base image
+    sed -i 's|gcr.io/distroless/static-debian11|gcr.io/distroless/static-debian12|g' Makefile
+    sed -i 's|gcr.io/distroless/base-debian11|gcr.io/distroless/base-debian12|g' Makefile
 
     # make gen fmt || true
     # rm -rf hack/kubernetes/storageclass
