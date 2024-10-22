@@ -19,8 +19,6 @@ refresh() {
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
-    sed -i 's|FROM appscode/dlv:1.22.0|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
-    sed -i 's|FROM appscode/dlv:1.22|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
     sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
     sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
 
@@ -79,6 +77,8 @@ refresh() {
     # Use bookworm base image
     sed -i 's|gcr.io/distroless/static-debian11|gcr.io/distroless/static-debian12|g' Makefile
     sed -i 's|gcr.io/distroless/base-debian11|gcr.io/distroless/base-debian12|g' Makefile
+    sed -i 's|debian:bullseye|debian:12|g' Makefile
+    sed -i 's|debian:bookworm|debian:12|g' Makefile
 
     # make gen fmt || true
     # rm -rf hack/kubernetes/storageclass
