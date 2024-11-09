@@ -19,6 +19,11 @@ refresh() {
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
+    sed -i 's|debian:bullseye|debian:12|g' Dockerfile.in
+    sed -i 's|debian:bookworm|debian:12|g' Dockerfile.in
+
+    sed -i 's|debian:bullseye|debian:12|g' Dockerfile.dbg
+    sed -i 's|debian:bookworm|debian:12|g' Dockerfile.dbg
     sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
     sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
 
