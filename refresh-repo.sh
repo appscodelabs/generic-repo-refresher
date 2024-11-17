@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=deb-12 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use debian:12 base image"
+PR_BRANCH=kind-0-25-0 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Use kind v0.25.0"
 
 REPO_ROOT=/tmp/g1271
 
@@ -116,7 +116,8 @@ refresh() {
 
     #     # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
         # KIND
-        sed -i 's|version: v0.17.0|version: v0.24.0|g' *
+        # sed -i 's|version: v0.17.0|version: v0.24.0|g' *
+        sed -i 's|version: v0.24.0|version: v0.25.0|g' *
 
         # sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|g' *
         # sed -i 's|\[v1.18.20, v1.20.15, v1.22.15, v1.24.6, v1.25.2\]|\[v1.20.15, v1.22.15, v1.24.7, v1.26.0\]|g' *
