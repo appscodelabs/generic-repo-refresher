@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=kind-0-25-0 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Use kind v0.25.0"
+PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Update github action modules"
 
 REPO_ROOT=/tmp/g1271
 
@@ -107,6 +107,13 @@ refresh() {
 
     [ -d .github/workflows ] && {
         pushd .github/workflows
+
+        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v4|g' *
+        sed -i 's|actions/setup-go@v[[:digit:]]\+|actions/setup-go@v5|g' *
+        sed -i 's|actions/setup-node@v[[:digit:]]\+|actions/setup-node@v4|g' *
+        sed -i 's|actions/setup-python@v[[:digit:]]\+|actions/setup-python@v5|g' *
+        sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
+        sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
 
     #     # hugo
     #     sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
