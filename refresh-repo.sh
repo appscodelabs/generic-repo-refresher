@@ -108,7 +108,7 @@ refresh() {
     [ -d .github/workflows ] && {
         pushd .github/workflows
 
-        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v4|g' *
+        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' *
         sed -i 's|actions/setup-go@v[[:digit:]]\+|actions/setup-go@v5|g' *
         sed -i 's|actions/setup-node@v[[:digit:]]\+|actions/setup-node@v4|g' *
         sed -i 's|actions/setup-python@v[[:digit:]]\+|actions/setup-python@v5|g' *
