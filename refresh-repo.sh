@@ -115,15 +115,15 @@ refresh() {
         sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
         sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
 
-        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml
+        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml || true
 
-    #     # hugo
-    #     sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
+        #     # hugo
+        #     sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
 
-    #     # update engineerd/setup-kind
-    #     sed -i 's|cert-manager/cert-manager/releases/download/v1.9.1/|cert-manager/cert-manager/releases/download/v1.11.0/|g' *
+        #     # update engineerd/setup-kind
+        #     sed -i 's|cert-manager/cert-manager/releases/download/v1.9.1/|cert-manager/cert-manager/releases/download/v1.11.0/|g' *
 
-    #     # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
+        #     # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
         # KIND
         # sed -i 's|version: v0.17.0|version: v0.24.0|g' *
         sed -i 's|version: v0.24.0|version: v0.25.0|g' *
@@ -173,11 +173,11 @@ refresh() {
         # update node
         sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
 
-    #     sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
-    #     sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
-    #     # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
-    #     # sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
-    #     # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
+        #     sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
+        #     sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
+        #     # sed -i 's|/gh-tools/releases/download/v0.2.12/|/gh-tools/releases/download/v0.2.13/|g' *
+        #     # sed -i 's|/release-automaton/releases/download/v0.0.36/|/release-automaton/releases/download/v0.0.37/|g' *
+        #     # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
         popd
     }
 
