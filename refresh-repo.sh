@@ -116,6 +116,7 @@ refresh() {
         sed -i 's|actions/setup-go@v[[:digit:]]\+|actions/setup-go@v5|g' *
         sed -i 's|actions/setup-node@v[[:digit:]]\+|actions/setup-node@v4|g' *
         sed -i 's|actions/setup-python@v[[:digit:]]\+|actions/setup-python@v5|g' *
+        sed -i 's|actions/upload-artifact@v[[:digit:]]\+|actions/upload-artifact@v4|g' *
         sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
         sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
 
