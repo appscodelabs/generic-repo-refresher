@@ -6,9 +6,9 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update github action modules"
+COMMIT_MSG="Disable image caching in setup-qemu action"
 
-REPO_ROOT=/tmp/g1271
+REPO_ROOT=/tmp/setup-qemu-action
 
 refresh() {
     echo "refreshing repository: $1"
@@ -114,6 +114,8 @@ refresh() {
         sed -i 's|actions/setup-python@v[[:digit:]]\+|actions/setup-python@v5|g' *
         sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
         sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
+
+        go run $SCRIPT_ROOT/fix-ci.go *.yml
 
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' cherry-pick.yml || true
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' publish-oci.yml || true
