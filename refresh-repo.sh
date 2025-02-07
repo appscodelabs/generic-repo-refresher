@@ -6,9 +6,9 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update github action modules"
+COMMIT_MSG="Disable image caching in setup-qemu action"
 
-REPO_ROOT=/tmp/g1271
+REPO_ROOT=/tmp/setup-qemu-action
 
 refresh() {
     echo "refreshing repository: $1"
@@ -28,6 +28,10 @@ refresh() {
     sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
 
     sed -i 's/?=\ 1.22/?=\ 1.23/g' Makefile
+
+    sed -i 's|--skip-dirs-use-default|--exclude-dirs-use-default|g' Makefile
+    sed -i 's|--skip-dirs|--exclude-dirs|g' Makefile
+    sed -i 's|--skip-files|--exclude-files|g' Makefile
 
     # sed -i 's|?= appscode/gengo:release-1.20|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
     # sed -i 's|?= appscode/gengo:release-1.21|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
@@ -115,6 +119,8 @@ refresh() {
         sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
         sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
 
+        go run $SCRIPT_ROOT/fix-ci.go *.yml
+
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' cherry-pick.yml || true
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' publish-oci.yml || true
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml || true
@@ -182,6 +188,8 @@ refresh() {
         #     # sed -i 's|/hugo-tools/releases/download/v0.2.21/|/hugo-tools/releases/download/v0.2.23/|g' *
         popd
     }
+
+    make fmt || true
 
     # [ -f go.mod ] && {
     #     go mod tidy
