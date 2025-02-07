@@ -28,6 +28,7 @@ refresh() {
     sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
 
     sed -i 's/?=\ 1.22/?=\ 1.23/g' Makefile
+    sed -i 's|--skip-|--exclude-|g' Makefile
 
     # sed -i 's|?= appscode/gengo:release-1.20|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
     # sed -i 's|?= appscode/gengo:release-1.21|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
