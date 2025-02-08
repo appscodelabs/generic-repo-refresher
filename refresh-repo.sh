@@ -6,9 +6,9 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update kubectl to v1.32"
+COMMIT_MSG="Update github actions workflows"
 
-REPO_ROOT=/tmp/up-kubectl
+REPO_ROOT=/tmp/gha-up
 
 refresh() {
     echo "refreshing repository: $1"
