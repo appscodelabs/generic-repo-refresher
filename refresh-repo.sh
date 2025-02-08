@@ -6,9 +6,9 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Disable image caching in setup-qemu action"
+COMMIT_MSG="Update kubectl to v1.31"
 
-REPO_ROOT=/tmp/setup-qemu-action
+REPO_ROOT=/tmp/up-kubectl
 
 refresh() {
     echo "refreshing repository: $1"
@@ -125,6 +125,10 @@ refresh() {
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' cherry-pick.yml || true
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' publish-oci.yml || true
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml || true
+
+        # kubectl
+        sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
+        sed -i 's|https://dl.k8s.io/release/v1.25.2/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
 
         #     # hugo
         #     sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
