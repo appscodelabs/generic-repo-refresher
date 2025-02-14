@@ -6,9 +6,9 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update github actions workflows"
+COMMIT_MSG="Use Go 1.24"
 
-REPO_ROOT=/tmp/gha-up
+REPO_ROOT=/tmp/go124
 
 refresh() {
     echo "refreshing repository: $1"
@@ -24,10 +24,10 @@ refresh() {
 
     sed -i 's|debian:bullseye|debian:12|g' Dockerfile.dbg
     sed -i 's|debian:bookworm|debian:12|g' Dockerfile.dbg
-    sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
-    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.23|g' Dockerfile.dbg
+    sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.24|g' Dockerfile.dbg
+    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.24|g' Dockerfile.dbg
 
-    sed -i 's/?=\ 1.22/?=\ 1.23/g' Makefile
+    sed -i 's/?=\ 1.23/?=\ 1.24/g' Makefile
 
     sed -i 's|--skip-dirs-use-default|--exclude-dirs-use-default|g' Makefile
     sed -i 's|--skip-dirs|--exclude-dirs|g' Makefile
@@ -168,20 +168,25 @@ refresh() {
         sed -i 's|pip3 install|pipx install|g' *
 
         # update GO
-        sed -i 's/Go\ 1.20/Go\ 1.23/g' *
-        sed -i "s/go-version:\ 1.20/go-version:\ '1.23'/g" *
-        sed -i "s/go-version:\ ^1.20/go-version:\ '1.23'/g" *
-        sed -i "s/go-version:\ '1.20'/go-version:\ '1.23'/g" *
+        sed -i 's/Go\ 1.20/Go\ 1.24/g' *
+        sed -i "s/go-version:\ 1.20/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ ^1.20/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ '1.20'/go-version:\ '1.24'/g" *
 
-        sed -i 's/Go\ 1.21/Go\ 1.23/g' *
-        sed -i "s/go-version:\ 1.21/go-version:\ '1.23'/g" *
-        sed -i "s/go-version:\ ^1.21/go-version:\ '1.23'/g" *
-        sed -i "s/go-version:\ '1.21'/go-version:\ '1.23'/g" *
+        sed -i 's/Go\ 1.21/Go\ 1.24/g' *
+        sed -i "s/go-version:\ 1.21/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ ^1.21/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ '1.21'/go-version:\ '1.24'/g" *
 
-        sed -i 's/Go\ 1.22/Go\ 1.23/g' *
-        sed -i "s/go-version:\ 1.22/go-version:\ '1.23'/g" *
-        sed -i "s/go-version:\ ^1.22/go-version:\ '1.23'/g" *
-        sed -i "s/go-version:\ '1.22'/go-version:\ '1.23'/g" *
+        sed -i 's/Go\ 1.22/Go\ 1.24/g' *
+        sed -i "s/go-version:\ 1.22/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ ^1.22/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ '1.22'/go-version:\ '1.24'/g" *
+
+        sed -i 's/Go\ 1.23/Go\ 1.24/g' *
+        sed -i "s/go-version:\ 1.23/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ ^1.23/go-version:\ '1.24'/g" *
+        sed -i "s/go-version:\ '1.23'/go-version:\ '1.24'/g" *
 
         # update node
         sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
