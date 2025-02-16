@@ -144,6 +144,7 @@ refresh() {
         #     # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
         # KIND
         # sed -i 's|version: v0.17.0|version: v0.24.0|g' *
+        sed -i 's|version: v0.20.0|version: v0.27.0|g' *
         sed -i 's|version: v0.25.0|version: v0.27.0|g' *
 
         # sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|g' *
