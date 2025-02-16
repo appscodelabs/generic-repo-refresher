@@ -132,6 +132,7 @@ refresh() {
         sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml || true
 
         # kubectl
+        sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
         sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
         sed -i 's|https://dl.k8s.io/release/v1.25.2/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
 
