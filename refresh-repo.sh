@@ -8,7 +8,7 @@ GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
 COMMIT_MSG="Test against k8s 1.32"
 
-REPO_ROOT=/tmp/k132
+REPO_ROOT=/tmp/gha-up
 
 refresh() {
     echo "refreshing repository: $1"
