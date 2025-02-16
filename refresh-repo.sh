@@ -112,6 +112,8 @@ refresh() {
     #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/enterprise.sh hack/scripts/update-release-tracker.sh
     # fi
 
+    sed -i 's|k8sVersions=(v1.26.3)|k8sVersions=(v1.32.2)|g' hack/scripts/generate-test-matrix.sh || true
+
     [ -d .github/workflows ] && {
         pushd .github/workflows
 
