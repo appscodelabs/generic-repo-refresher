@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Test against k8s 1.32"
+COMMIT_MSG="Test against k8s 1.33"
 
 REPO_ROOT=/tmp/gha-up
 
@@ -112,7 +112,8 @@ refresh() {
     #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/enterprise.sh hack/scripts/update-release-tracker.sh
     # fi
 
-    sed -i 's|k8sVersions=(v1.26.3)|k8sVersions=(v1.32.2)|g' hack/scripts/generate-test-matrix.sh || true
+    # sed -i 's|k8sVersions=(v1.26.3)|k8sVersions=(v1.32.2)|g' hack/scripts/generate-test-matrix.sh || true
+    sed -i 's|k8sVersions=(v1.32.2)|k8sVersions=(v1.33.1)|g' hack/scripts/generate-test-matrix.sh || true
 
     [ -d .github/workflows ] && {
         pushd .github/workflows
@@ -145,8 +146,9 @@ refresh() {
         #     # sed -i 's|engineerd/setup-kind@v0.4.0|engineerd/setup-kind@v0.5.0|g' *
         # KIND
         # sed -i 's|version: v0.17.0|version: v0.24.0|g' *
-        sed -i 's|version: v0.20.0|version: v0.27.0|g' *
-        sed -i 's|version: v0.25.0|version: v0.27.0|g' *
+        # sed -i 's|version: v0.20.0|version: v0.27.0|g' *
+        # sed -i 's|version: v0.25.0|version: v0.27.0|g' *
+        sed -i 's|version: v0.27.0|version: v0.29.0|g' *
 
         # sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|g' *
         # sed -i 's|\[v1.18.20, v1.20.15, v1.22.15, v1.24.6, v1.25.2\]|\[v1.20.15, v1.22.15, v1.24.7, v1.26.0\]|g' *
@@ -169,19 +171,27 @@ refresh() {
         # sed -i 's|\[v1.25.16, v1.26.15, v1.27.13, v1.28.9, v1.29.4, v1.30.0\]|\[v1.26.15, v1.27.16, v1.28.12, v1.29.7, v1.30.3, v1.31.0\]|g' *
         # sed -i 's|\[v1.27.3\]|\[v1.30.3\]|g' *
 
-        sed -i 's|(v1.26.15 v1.31.0)|(v1.29.14 v1.32.2)|g' *
-        sed -i 's|\[v1.26.15, v1.27.16, v1.28.9, v1.29.7, v1.30.3, v1.31.0\]|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
-        sed -i 's|\[v1.26.15, v1.27.16, v1.28.12, v1.29.7, v1.30.3, v1.31.0\]|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
+        # sed -i 's|(v1.26.15 v1.31.0)|(v1.29.14 v1.32.2)|g' *
+        sed -i 's|(v1.29.14 v1.32.2)|(v1.29.14 v1.33.1)|g' *
 
-        sed -i 's|(v1.29.14 v1.32.2)|(v1.26.15 v1.32.2)|g' *
-        sed -i 's|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
+        # sed -i 's|\[v1.26.15, v1.27.16, v1.28.9, v1.29.7, v1.30.3, v1.31.0\]|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
+        # sed -i 's|\[v1.26.15, v1.27.16, v1.28.12, v1.29.7, v1.30.3, v1.31.0\]|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
+        sed -i 's|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.1\]|g' *
 
-        sed -i 's|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.26.15, v1.28.15, v1.30.10, v1.32.2\]|g' *
+        # sed -i 's|(v1.29.14 v1.32.2)|(v1.26.15 v1.32.2)|g' *
+        sed -i 's|(v1.26.15 v1.32.2)|(v1.28.15 v1.33.1)|g' *
 
-        sed -i 's|\[v1.22.0\]|\[v1.32.2\]|g' *
-        sed -i 's|\[v1.25.3\]|\[v1.32.2\]|g' *
-        sed -i 's|\[v1.29.0\]|\[v1.32.2\]|g' *
-        sed -i 's|\[v1.30.3\]|\[v1.32.2\]|g' *
+        # sed -i 's|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
+        sed -i 's|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.1\]|g' *
+
+        # sed -i 's|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.26.15, v1.28.15, v1.30.10, v1.32.2\]|g' *
+        sed -i 's|\[v1.26.15, v1.28.15, v1.30.10, v1.32.2\]|\[v1.28.15, v1.30.13, v1.32.5, v1.33.1\]|g' *
+
+        # sed -i 's|\[v1.22.0\]|\[v1.32.2\]|g' *
+        # sed -i 's|\[v1.25.3\]|\[v1.32.2\]|g' *
+        # sed -i 's|\[v1.29.0\]|\[v1.32.2\]|g' *
+        # sed -i 's|\[v1.30.3\]|\[v1.32.2\]|g' *
+        sed -i 's|\[v1.32.2\]|\[v1.33.1\]|g' *
 
         sed -i 's|ubuntu-20.04|ubuntu-24.04|g' *
         sed -i 's|ubuntu-latest|ubuntu-24.04|g' *
@@ -210,7 +220,7 @@ refresh() {
         sed -i "s/go-version:\ '1.23'/go-version:\ '1.24'/g" *
 
         # update node
-        sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
+        # sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
 
         #     sed -i "s/node-version:\ '14'/node-version:\ '16'/g" *
         #     sed -i "s/node-version:\ 14.x/node-version:\ '16'/g" *
