@@ -40,6 +40,7 @@ refresh() {
 
     sed -i 's|chart-testing:v3.5.1|chart-testing:v3.11.0|g' Makefile
     sed -i 's|chart-testing:v3.8.0|chart-testing:v3.11.0|g' Makefile
+    sed -i 's|chart-testing:v3.11.0|chart-testing:v3.13.0|g' Makefile
 
     sed -i 's|"vendor contrib libbuild"|".go vendor contrib libbuild"|g' Makefile
     sed -i 's|"vendor contrib libbuild library"|".go vendor contrib libbuild library"|g' Makefile
