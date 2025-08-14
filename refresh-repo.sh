@@ -6,7 +6,7 @@ SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Test against k8s 1.33.2"
+COMMIT_MSG="Use Go 1.25"
 
 REPO_ROOT=/tmp/gha-up
 
@@ -24,10 +24,11 @@ refresh() {
 
     sed -i 's|debian:bullseye|debian:12|g' Dockerfile.dbg
     sed -i 's|debian:bookworm|debian:12|g' Dockerfile.dbg
-    sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.24|g' Dockerfile.dbg
-    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.24|g' Dockerfile.dbg
+    sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
+    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
 
     sed -i 's/?=\ 1.23/?=\ 1.24/g' Makefile
+    sed -i 's/?=\ 1.24/?=\ 1.25/g' Makefile
 
     sed -i 's|--skip-dirs-use-default|--exclude-dirs-use-default|g' Makefile
     sed -i 's|--skip-dirs|--exclude-dirs|g' Makefile
@@ -226,6 +227,9 @@ refresh() {
         sed -i "s/go-version:\ 1.23/go-version:\ '1.24'/g" *
         sed -i "s/go-version:\ ^1.23/go-version:\ '1.24'/g" *
         sed -i "s/go-version:\ '1.23'/go-version:\ '1.24'/g" *
+
+        sed -i 's/Go\ 1.24/Go\ 1.25/g' *
+        sed -i "s/go-version:\ '1.24'/go-version:\ '1.25'/g" *
 
         # update node
         # sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
