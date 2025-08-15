@@ -72,7 +72,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
         run: |
-          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=appscode-cloud,kubepack,ops-center,kluster-manager,kluster-api > repos.txt
+          GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=appscode-cloud > repos.txt
           python3 -m venv .venv
           source .venv/bin/activate
           pip3 install pyyaml
