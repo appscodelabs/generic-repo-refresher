@@ -27,6 +27,8 @@ refresh() {
     sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
     sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
 
+    sed -i 's/?=\ 1.21/?=\ 1.25/g' Makefile
+    sed -i 's/?=\ 1.22/?=\ 1.25/g' Makefile
     sed -i 's/?=\ 1.23/?=\ 1.24/g' Makefile
     sed -i 's/?=\ 1.24/?=\ 1.25/g' Makefile
 
