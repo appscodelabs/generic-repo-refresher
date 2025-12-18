@@ -5,7 +5,7 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=gha-up135 #generic-repo-refresher # -$(date +%s)
+PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
 COMMIT_MSG="Test against k8s 1.35"
 
 REPO_ROOT=/tmp/gha-up
