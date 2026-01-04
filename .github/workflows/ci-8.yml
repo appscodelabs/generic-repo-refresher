@@ -75,6 +75,6 @@ jobs:
           GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=open-viz,ops-center,opnpulse > repos.txt
           python3 -m venv .venv
           source .venv/bin/activate
-          pip3 install pyyaml
-          pip3 install ruamel.yaml
+          pipx install pyyaml
+          pipx install ruamel.yaml
           ./refresh-repo.sh repos.txt
