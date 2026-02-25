@@ -224,7 +224,7 @@ refresh() {
         sed -i 's|ubuntu-20.04|ubuntu-24.04|g' *
         sed -i 's|ubuntu-latest|ubuntu-24.04|g' *
 
-        sed -i 's|pip3 install|pipx install|g' *
+        # sed -i 's|pip3 install|pipx install|g' *
 
         # update GO
         sed -i 's/Go\ 1.20/Go\ 1.24/g' *
