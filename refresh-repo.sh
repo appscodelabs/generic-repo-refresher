@@ -45,6 +45,8 @@ EOF
       timezone: "UTC"
     open-pull-requests-limit: 0
 EOF
+    else
+        rm -f .github/dependabot.yml
     fi
 
     sed -i 's|debian:bullseye|debian:12|g' Dockerfile.in
