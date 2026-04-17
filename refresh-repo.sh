@@ -5,10 +5,10 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=gha-up #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Test against k8s 1.35"
+PR_BRANCH=gha-up2 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Configure dependabot refresh schedule"
 
-REPO_ROOT=/tmp/gha-up
+REPO_ROOT=/tmp/gha-up2
 
 refresh() {
     echo "refreshing repository: $1"
@@ -30,7 +30,7 @@ EOF
     directory: "/"
     schedule:
       interval: "cron"
-      cron: "0 * * * *"
+      cron: "0 */4 * * *"
       timezone: "UTC"
     open-pull-requests-limit: 0
 EOF
