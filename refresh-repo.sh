@@ -19,6 +19,32 @@ refresh() {
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
 
+    mkdir -p .github
+    cat > .github/dependabot.yml << 'EOF'
+version: 2
+updates:
+EOF
+
+    [ -f go.mod ] && cat >> .github/dependabot.yml << 'EOF'
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "cron"
+      cron: "0 * * * *"
+      timezone: "UTC"
+    open-pull-requests-limit: 0
+EOF
+
+    [ -f package.json ] && cat >> .github/dependabot.yml << 'EOF'
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "cron"
+      cron: "0 * * * *"
+      timezone: "UTC"
+    open-pull-requests-limit: 0
+EOF
+
     sed -i 's|debian:bullseye|debian:12|g' Dockerfile.in
     sed -i 's|debian:bookworm|debian:12|g' Dockerfile.in
 
