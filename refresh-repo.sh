@@ -30,9 +30,7 @@ EOF
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
-      interval: "cron"
-      cron: "0 */4 * * *"
-      timezone: "UTC"
+      interval: "daily"
     open-pull-requests-limit: 0
 EOF
 
@@ -40,9 +38,7 @@ EOF
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "cron"
-      cron: "0 * * * *"
-      timezone: "UTC"
+      interval: "daily"
     open-pull-requests-limit: 0
 EOF
     else
