@@ -11,6 +11,11 @@ if [ -z "${GITHUB_TOKEN:-}" ]; then
     exit 1
 fi
 
+if ! command -v jq >/dev/null 2>&1; then
+    echo "Missing required command: jq"
+    exit 1
+fi
+
 if [ ! -f "$ORG_LIST" ]; then
     echo "Org list file not found: $ORG_LIST"
     echo "Correct usage: ORG_LIST=<path_to_org_list> $SCRIPT_NAME"
@@ -40,6 +45,26 @@ apply_org_policy() {
         "https://api.github.com/orgs/${org}/actions/permissions/workflow" \
         -d '{"default_workflow_permissions":"read","can_approve_pull_request_reviews":false}' \
         || echo "    [warn] failed to set workflow permissions for $org"
+
+    echo "  - setting sha_pinning_required=true"
+    local current body
+    if current=$(curl -fsSL \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+        -H "X-GitHub-Api-Version: 2026-03-10" \
+        "https://api.github.com/orgs/${org}/actions/permissions"); then
+        body=$(echo "$current" | jq -c '{enabled_repositories, allowed_actions, sha_pinning_required: true} | with_entries(select(.value != null))')
+        curl -fsSL \
+            -X PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/orgs/${org}/actions/permissions" \
+            -d "$body" \
+            || echo "    [warn] failed to set sha_pinning_required for $org"
+    else
+        echo "    [warn] failed to read actions permissions for $org"
+    fi
 }
 
 while IFS= read -r -u9 org || [ -n "$org" ]; do
