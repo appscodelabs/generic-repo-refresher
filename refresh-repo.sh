@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=gha-up2 #generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Configure dependabot refresh schedule"
+PR_BRANCH=go127 #generic-repo-refresher # -$(date +%s)
+COMMIT_MSG="Use Go 1.27, k8s 1.37 & debian:13"
 
 REPO_ROOT=/tmp/gha-up2
 
@@ -45,21 +45,25 @@ EOF
         rm -f .github/dependabot.yml
     fi
 
-    sed -i 's|debian:bullseye|debian:12|g' Dockerfile.in
-    sed -i 's|debian:bookworm|debian:12|g' Dockerfile.in
+    # sed -i 's|debian:bullseye|debian:12|g' Dockerfile.in
+    # sed -i 's|debian:bookworm|debian:12|g' Dockerfile.in
 
-    sed -i 's|debian:bullseye|debian:12|g' Dockerfile.dbg
-    sed -i 's|debian:bookworm|debian:12|g' Dockerfile.dbg
-    sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
-    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
+    # sed -i 's|debian:bullseye|debian:12|g' Dockerfile.dbg
+    # sed -i 's|debian:bookworm|debian:12|g' Dockerfile.dbg
+    sed -i 's|debian:12|debian:13|g' Dockerfile.dbg
 
-    sed -i 's/?=\ 1.18/?=\ 1.25/g' Makefile
-    sed -i 's/?=\ 1.19/?=\ 1.25/g' Makefile
-    sed -i 's/?=\ 1.20/?=\ 1.25/g' Makefile
-    sed -i 's/?=\ 1.21/?=\ 1.25/g' Makefile
-    sed -i 's/?=\ 1.22/?=\ 1.25/g' Makefile
-    sed -i 's/?=\ 1.23/?=\ 1.24/g' Makefile
-    sed -i 's/?=\ 1.24/?=\ 1.25/g' Makefile
+    # sed -i 's|FROM appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
+    # sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.25|g' Dockerfile.dbg
+    sed -i 's|FROM ghcr.io/appscode/dlv:1.*|FROM ghcr.io/appscode/dlv:1.27|g' Dockerfile.dbg
+
+    # sed -i 's/?=\ 1.18/?=\ 1.25/g' Makefile
+    # sed -i 's/?=\ 1.19/?=\ 1.25/g' Makefile
+    # sed -i 's/?=\ 1.20/?=\ 1.25/g' Makefile
+    # sed -i 's/?=\ 1.21/?=\ 1.25/g' Makefile
+    # sed -i 's/?=\ 1.22/?=\ 1.25/g' Makefile
+    # sed -i 's/?=\ 1.23/?=\ 1.24/g' Makefile
+    # sed -i 's/?=\ 1.24/?=\ 1.25/g' Makefile
+    sed -i 's/?=\ 1.25/?=\ 1.27/g' Makefile
 
     sed -i 's|--skip-dirs-use-default|--exclude-dirs-use-default|g' Makefile
     sed -i 's|--skip-dirs|--exclude-dirs|g' Makefile
@@ -68,11 +72,13 @@ EOF
     # sed -i 's|?= appscode/gengo:release-1.20|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
     # sed -i 's|?= appscode/gengo:release-1.21|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
     # sed -i 's|?= appscode/gengo:release-1.24|?= ghcr.io/appscode/gengo:release-1.25|g' Makefile
-    sed -i 's|?= appscode/gengo:release-1.25|?= ghcr.io/appscode/gengo:release-1.29|g' Makefile
+    # sed -i 's|?= appscode/gengo:release-1.25|?= ghcr.io/appscode/gengo:release-1.29|g' Makefile
+    sed -i 's|?= ghcr.io/appscode/gengo:release-1.29|?= ghcr.io/appscode/gengo:release-1.34|g' Makefile
 
-    sed -i 's|chart-testing:v3.5.1|chart-testing:v3.11.0|g' Makefile
-    sed -i 's|chart-testing:v3.8.0|chart-testing:v3.11.0|g' Makefile
-    sed -i 's|chart-testing:v3.11.0|chart-testing:v3.13.0|g' Makefile
+    # sed -i 's|chart-testing:v3.5.1|chart-testing:v3.11.0|g' Makefile
+    # sed -i 's|chart-testing:v3.8.0|chart-testing:v3.11.0|g' Makefile
+    # sed -i 's|chart-testing:v3.11.0|chart-testing:v3.13.0|g' Makefile
+    sed -i 's|chart-testing:v3.13.0|chart-testing:v3.14.0|g' Makefile
 
     sed -i 's|"vendor contrib libbuild"|".go vendor contrib libbuild"|g' Makefile
     sed -i 's|"vendor contrib libbuild library"|".go vendor contrib libbuild library"|g' Makefile
@@ -120,10 +126,15 @@ EOF
     # sed -i 's|gcr.io/distroless/base-debian10|gcr.io/distroless/base-debian11|g' Makefile
 
     # Use bookworm base image
-    sed -i 's|gcr.io/distroless/static-debian11|gcr.io/distroless/static-debian12|g' Makefile
-    sed -i 's|gcr.io/distroless/base-debian11|gcr.io/distroless/base-debian12|g' Makefile
-    sed -i 's|debian:bullseye|debian:12|g' Makefile
-    sed -i 's|debian:bookworm|debian:12|g' Makefile
+    # sed -i 's|gcr.io/distroless/static-debian11|gcr.io/distroless/static-debian12|g' Makefile
+    # sed -i 's|gcr.io/distroless/base-debian11|gcr.io/distroless/base-debian12|g' Makefile
+    # sed -i 's|debian:bullseye|debian:12|g' Makefile
+    # sed -i 's|debian:bookworm|debian:12|g' Makefile
+
+    # Use trixie base image
+    sed -i 's|gcr.io/distroless/static-debian12|gcr.io/distroless/static-debian13|g' Makefile
+    sed -i 's|gcr.io/distroless/base-debian12|gcr.io/distroless/base-debian13|g' Makefile
+    sed -i 's|debian:12|debian:13|g' Makefile
 
     # make gen fmt || true
     # rm -rf hack/kubernetes/storageclass
@@ -148,29 +159,31 @@ EOF
     # sed -i 's|k8sVersions=(v1.26.3)|k8sVersions=(v1.32.2)|g' hack/scripts/generate-test-matrix.sh || true
     # sed -i 's|k8sVersions=(v1.32.2)|k8sVersions=(v1.33.1)|g' hack/scripts/generate-test-matrix.sh || true
     # sed -i 's|k8sVersions=(v1.33.1)|k8sVersions=(v1.33.2)|g' hack/scripts/generate-test-matrix.sh || true
-    sed -i 's|k8sVersions=(v1.33.2)|k8sVersions=(v1.34.0)|g' hack/scripts/generate-test-matrix.sh || true
+    # sed -i 's|k8sVersions=(v1.33.2)|k8sVersions=(v1.34.0)|g' hack/scripts/generate-test-matrix.sh || true
+    sed -i 's|k8sVersions=(v1.34.0)|k8sVersions=(v1.37.0)|g' hack/scripts/generate-test-matrix.sh || true
 
     [ -d .github/workflows ] && {
         pushd .github/workflows
 
-        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v4|g' *
-        sed -i 's|actions/setup-go@v[[:digit:]]\+|actions/setup-go@v5|g' *
-        sed -i 's|actions/setup-node@v[[:digit:]]\+|actions/setup-node@v4|g' *
-        sed -i 's|actions/setup-python@v[[:digit:]]\+|actions/setup-python@v5|g' *
-        sed -i 's|actions/upload-artifact@v[[:digit:]]\+|actions/upload-artifact@v4|g' *
-        sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
-        sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
+        # sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v4|g' *
+        # sed -i 's|actions/setup-go@v[[:digit:]]\+|actions/setup-go@v5|g' *
+        # sed -i 's|actions/setup-node@v[[:digit:]]\+|actions/setup-node@v4|g' *
+        # sed -i 's|actions/setup-python@v[[:digit:]]\+|actions/setup-python@v5|g' *
+        # sed -i 's|actions/upload-artifact@v[[:digit:]]\+|actions/upload-artifact@v4|g' *
+        # sed -i 's|docker/setup-buildx-action@v[[:digit:]]\+|docker/setup-buildx-action@v3|g' *
+        # sed -i 's|docker/setup-qemu-action@v[[:digit:]]\+|docker/setup-qemu-action@v3|g' *
 
-        go run $SCRIPT_ROOT/fix-ci.go *.yml
+        # go run $SCRIPT_ROOT/fix-ci.go *.yml
 
-        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' cherry-pick.yml || true
-        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' publish-oci.yml || true
-        sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml || true
+        # sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' cherry-pick.yml || true
+        # sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' publish-oci.yml || true
+        # sed -i 's|actions/checkout@v[[:digit:]]\+|actions/checkout@v1|g' release.yml || true
 
         # kubectl
-        sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
-        sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
-        sed -i 's|https://dl.k8s.io/release/v1.25.2/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
+        # sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
+        # sed -i 's|https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
+        # sed -i 's|https://dl.k8s.io/release/v1.25.2/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|g' *
+        sed -i 's|https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl|https://dl.k8s.io/release/v1.37.0/bin/linux/amd64/kubectl|g' *
 
         #     # hugo
         #     sed -i 's|v0.100.2/hugo_extended_0.100.2_Linux-64bit.deb|v0.111.1/hugo_extended_0.111.1_linux-amd64.deb|g' *
@@ -184,7 +197,8 @@ EOF
         # sed -i 's|version: v0.20.0|version: v0.27.0|g' *
         # sed -i 's|version: v0.25.0|version: v0.27.0|g' *
         # sed -i 's|version: v0.27.0|version: v0.29.0|g' *
-        sed -i 's|version: v0.29.0|version: v0.31.0|g' *
+        # sed -i 's|version: v0.29.0|version: v0.31.0|g' *
+        sed -i 's|version: v0.31.0|version: v0.33.0|g' *
 
         # sed -i 's|\[v1.18.20, v1.19.16, v1.20.15, v1.21.14, v1.22.15, v1.23.12, v1.24.6, v1.25.2\]|\[v1.20.15, v1.21.14, v1.22.15, v1.23.13, v1.24.7, v1.25.3, v1.26.0\]|g' *
         # sed -i 's|\[v1.18.20, v1.20.15, v1.22.15, v1.24.6, v1.25.2\]|\[v1.20.15, v1.22.15, v1.24.7, v1.26.0\]|g' *
@@ -211,32 +225,33 @@ EOF
         # sed -i 's|(v1.29.14 v1.32.2)|(v1.29.14 v1.33.1)|g' *
         # sed -i 's|(v1.29.14 v1.33.1)|(v1.29.14 v1.33.2)|g' *
         # sed -i 's|(v1.29.14 v1.33.2)|(v1.29.14 v1.34.0)|g' *
-        sed -i 's|(v1.29.14 v1.34.0)|(v1.29.14 v1.35.0)|g' *
+        # sed -i 's|(v1.29.14 v1.34.0)|(v1.29.14 v1.35.0)|g' *
+        sed -i 's|(v1.29.14 v1.35.0)|(v1.31.14 v1.37.0)|g' *
 
         # sed -i 's|\[v1.26.15, v1.27.16, v1.28.9, v1.29.7, v1.30.3, v1.31.0\]|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
         # sed -i 's|\[v1.26.15, v1.27.16, v1.28.12, v1.29.7, v1.30.3, v1.31.0\]|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
         # sed -i 's|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.1\]|g' *
         # sed -i 's|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.1\]|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.2\]|g' *
         # sed -i 's|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.2\]|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.34.0\]|g' *
-        sed -i 's|\[v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.34.0\]|\[v1.29.14, v1.31.14, v1.33.7, v1.35.0\]|g' *
+        sed -i 's|\[v1.29.14, v1.31.14, v1.33.7, v1.35.0\]|\[v1.31.14, v1.33.12, v1.35.8, v1.37.0\]|g' *
 
         # sed -i 's|(v1.29.14 v1.32.2)|(v1.26.15 v1.32.2)|g' *
         # sed -i 's|(v1.26.15 v1.32.2)|(v1.28.15 v1.33.1)|g' *
         # sed -i 's|(v1.28.15 v1.33.1)|(v1.28.15 v1.33.2)|g' *
         # sed -i 's|(v1.28.15 v1.33.2)|(v1.28.15 v1.34.0)|g' *
-        sed -i 's|(v1.28.15 v1.34.0)|(v1.28.15 v1.35.0)|g' *
+        sed -i 's|(v1.28.15 v1.35.0)|(v1.31.14 v1.37.0)|g' *
 
         # sed -i 's|\[v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|g' *
         # sed -i 's|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.1\]|g' *
         # sed -i 's|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.1\]|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.2\]|g' *
         # sed -i 's|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.2\]|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.2, v1.34.0\]|g' *
-        sed -i 's|\[v1.28.15, v1.29.14, v1.30.13, v1.31.9, v1.32.5, v1.33.2, v1.34.0\]|\[v1.29.14, v1.30.13, v1.31.14, v1.32.11, v1.33.7, v1.34.3, v1.35.0\]|g' *
+        sed -i 's|\[v1.29.14, v1.30.13, v1.31.14, v1.32.11, v1.33.7, v1.34.3, v1.35.0\]|\[v1.31.14, v1.32.11, v1.33.12, v1.34.11, v1.35.8, v1.36.4, v1.37.0\]|g' *
 
         # sed -i 's|\[v1.26.15, v1.27.16, v1.28.15, v1.29.14, v1.30.10, v1.31.6, v1.32.2\]|\[v1.26.15, v1.28.15, v1.30.10, v1.32.2\]|g' *
         # sed -i 's|\[v1.26.15, v1.28.15, v1.30.10, v1.32.2\]|\[v1.28.15, v1.30.13, v1.32.5, v1.33.1\]|g' *
         # sed -i 's|\[v1.28.15, v1.30.13, v1.32.5, v1.33.1\]|\[v1.28.15, v1.30.13, v1.32.5, v1.33.2\]|g' *
         # sed -i 's|\[v1.28.15, v1.30.13, v1.32.5, v1.33.2\]|\[v1.28.15, v1.30.13, v1.32.5, v1.34.0\]|g' *
-        sed -i 's|\[v1.28.15, v1.30.13, v1.32.5, v1.34.0\]|\[v1.29.14, v1.31.14, v1.33.7, v1.35.0\]|g' *
+        sed -i 's|\[v1.29.14, v1.31.14, v1.33.7, v1.35.0\]|\[v1.31.14, v1.33.12, v1.35.8, v1.37.0\]|g' *
 
         # sed -i 's|\[v1.22.0\]|\[v1.32.2\]|g' *
         # sed -i 's|\[v1.25.3\]|\[v1.32.2\]|g' *
@@ -245,7 +260,7 @@ EOF
         # sed -i 's|\[v1.32.2\]|\[v1.33.1\]|g' *
         # sed -i 's|\[v1.33.1\]|\[v1.33.2\]|g' *
         # sed -i 's|\[v1.33.2\]|\[v1.34.0\]|g' *
-        sed -i 's|\[v1.34.0\]|\[v1.35.0\]|g' *
+        sed -i 's|\[v1.35.0\]|\[v1.37.0\]|g' *
 
         sed -i 's|ubuntu-20.04|ubuntu-24.04|g' *
         sed -i 's|ubuntu-latest|ubuntu-24.04|g' *
@@ -253,28 +268,31 @@ EOF
         # sed -i 's|pip3 install|pipx install|g' *
 
         # update GO
-        sed -i 's/Go\ 1.20/Go\ 1.24/g' *
-        sed -i "s/go-version:\ 1.20/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ ^1.20/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ '1.20'/go-version:\ '1.24'/g" *
+        # sed -i 's/Go\ 1.20/Go\ 1.24/g' *
+        # sed -i "s/go-version:\ 1.20/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ ^1.20/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ '1.20'/go-version:\ '1.24'/g" *
 
-        sed -i 's/Go\ 1.21/Go\ 1.24/g' *
-        sed -i "s/go-version:\ 1.21/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ ^1.21/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ '1.21'/go-version:\ '1.24'/g" *
+        # sed -i 's/Go\ 1.21/Go\ 1.24/g' *
+        # sed -i "s/go-version:\ 1.21/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ ^1.21/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ '1.21'/go-version:\ '1.24'/g" *
 
-        sed -i 's/Go\ 1.22/Go\ 1.24/g' *
-        sed -i "s/go-version:\ 1.22/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ ^1.22/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ '1.22'/go-version:\ '1.24'/g" *
+        # sed -i 's/Go\ 1.22/Go\ 1.24/g' *
+        # sed -i "s/go-version:\ 1.22/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ ^1.22/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ '1.22'/go-version:\ '1.24'/g" *
 
-        sed -i 's/Go\ 1.23/Go\ 1.24/g' *
-        sed -i "s/go-version:\ 1.23/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ ^1.23/go-version:\ '1.24'/g" *
-        sed -i "s/go-version:\ '1.23'/go-version:\ '1.24'/g" *
+        # sed -i 's/Go\ 1.23/Go\ 1.24/g' *
+        # sed -i "s/go-version:\ 1.23/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ ^1.23/go-version:\ '1.24'/g" *
+        # sed -i "s/go-version:\ '1.23'/go-version:\ '1.24'/g" *
 
-        sed -i 's/Go\ 1.24/Go\ 1.25/g' *
-        sed -i "s/go-version:\ '1.24'/go-version:\ '1.25'/g" *
+        # sed -i 's/Go\ 1.24/Go\ 1.25/g' *
+        # sed -i "s/go-version:\ '1.24'/go-version:\ '1.25'/g" *
+
+        sed -i 's/Go\ 1.25/Go\ 1.27/g' *
+        sed -i "s/go-version:\ '1.25'/go-version:\ '1.27'/g" *
 
         # update node
         # sed -i "s|node-version:\ '16'|node-version:\ '18'|g" *
