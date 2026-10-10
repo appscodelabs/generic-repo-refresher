@@ -70,7 +70,7 @@ jobs:
 
       - name: Refresh repositories
         env:
-          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOOLS_TOKEN }}
         run: |
           GH_TOOLS_TOKEN=${GITHUB_TOKEN} gh-tools list-repos --orgs=open-viz,ops-center,opnpulse > repos.txt
           python3 -m venv .venv
