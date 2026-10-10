@@ -12,7 +12,9 @@ REPO_ROOT=/tmp/gha-up2
 
 refresh() {
     echo "refreshing repository: $1"
-    rm -rf $REPO_ROOT
+    # go build leaves read-only (and possibly root-owned) files behind
+    chmod -R u+w $REPO_ROOT 2>/dev/null || sudo chmod -R u+w $REPO_ROOT 2>/dev/null || true
+    rm -rf $REPO_ROOT 2>/dev/null || sudo rm -rf $REPO_ROOT
     mkdir -p $REPO_ROOT
     pushd $REPO_ROOT
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
